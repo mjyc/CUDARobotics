@@ -20,13 +20,3 @@ cc_binary(
         ":extended_kalman_filter",
     ],
 )
-
-cc_binary(
-    name = "benchmark",
-    srcs = ["benchmark.cpp"],
-    deps = [
-        "@google_benchmark//:benchmark_main",
-        "//Localization:models_2d",
-        ":extended_kalman_filter",
-    ],
-)
