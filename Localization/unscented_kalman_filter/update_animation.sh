@@ -15,8 +15,8 @@ cleanup() {
 trap cleanup EXIT
 
 # Generate data
-bazel run //Localization/extended_kalman_filter:simulate > "${TMP_FILE}"
+bazel run //Localization/unscented_kalman_filter:simulate > "${TMP_FILE}"
 
 # Create gif
-OUTPUT_FILE="${WORKSPACE}/Localization/extended_kalman_filter/animation.gif"
-gnuplot -e "infile='${TMP_FILE}'; outfile='${OUTPUT_FILE}'" "${WORKSPACE}/Localization/extended_kalman_filter/animation.plt"
+OUTPUT_FILE="${WORKSPACE}/Localization/unscented_kalman_filter/animation.gif"
+gnuplot -e "infile='${TMP_FILE}'; outfile='${OUTPUT_FILE}'" "${WORKSPACE}/Localization/unscented_kalman_filter/animation.plt"
