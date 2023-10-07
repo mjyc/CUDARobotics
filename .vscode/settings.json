@@ -1,0 +1,13 @@
+{
+  // https://github.com/bazelbuild/vscode-bazel/issues/223
+  "bazel.queriesShareServer": true,
+
+  // https://github.com/microsoft/vscode-cpptools/issues/722
+  "C_Cpp.autoAddFileAssociations": false, 
+
+  "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+  "C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
+  "C_Cpp.codeAnalysis.clangTidy.args": [
+    "-checks=clang-diagnostic-*,clang-analyzer-*,cppcoreguidelines-*,modernize-*,-modernize-use-trailing-return-type,-cppcoreguidelines-avoid-magic-numbers"
+  ]
+}

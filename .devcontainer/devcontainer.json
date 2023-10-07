@@ -1,0 +1,23 @@
+{
+	"name": "C++",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"BAZELISK_VERSION": "v1.17.0",
+			"BUILDIFIER_VERSION": "6.1.2",
+			"BAZEL_COMDB_VERSION": "0.5.2"
+		}
+	},
+	"features": {
+		"./features/ibazel": {}
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {},
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"BazelBuild.vscode-bazel"
+			]
+		}
+	}
+}

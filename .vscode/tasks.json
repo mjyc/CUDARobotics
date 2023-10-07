@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Bazel: Generate compile_commands.json",
+        "type": "shell",
+        "command": "bazel-compdb",
+      },
+      {
+        "label": "Bazel: Build (debug)",
+        "type": "shell",
+        "command": "CC=clang bazel build -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "dependsOn": [
+          "Bazel: Generate compile_commands.json"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true,
+        },
+      },
+      {
+        "label": "Bazel: Run",
+        "type": "shell",
+        "command": "CC=clang bazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "problemMatcher": [],
+      },
+      {
+        "label": "Bazel: Run (debug)",
+        "type": "shell",
+        "command": "CC=clang bazel run -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "dependsOn": [
+          "Bazel: Build (debug)"
+        ],
+        "problemMatcher": [],
+      },
+      {
+        "label": "Bazel: Run (opt)",
+        "type": "shell",
+        "command": "CC=clang bazel run -c opt ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "problemMatcher": [],
+      },
+    ]
+}
