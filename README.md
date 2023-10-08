@@ -30,7 +30,7 @@ To open in Codespace, do
 
 To try Do
 
-1. Open a file, e.g., `Benchmark/benchmark.cpp`
+1. Open a file, e.g., `Localization/extended_kalman_filter/simulate.cpp`
 1. Add a breakporint, e.g., by clicking left to a line number
 1. Open Command Palette via Ctrl + Shift + P (Linux)
 1. Enter "Debug: Start Debugging"
@@ -47,15 +47,17 @@ Localization/extended_kalman_filter        496 ns          488 ns      1253402
 To reproduce, run
 
 ```
-bazel run --compilation_mode=opt //Localization:benchmark
+bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
 ```
 
 or do
 
-1. Open `Benchmark/benchmark.cpp`
+1. Open `Localization/extended_kalman_filter/benchmark.cpp`
 1. Open Command Palette via Ctrl + Shift + P (Linux)
 1. Enter "Tasks: Run Task"
 1. Enter "Bazel: Run (opt)"
+
+See 
 
 ## Visualization
 
@@ -64,4 +66,4 @@ To create animations, run
 .scripts/create_animations.sh  # overwrites existing gif files in .scripts/
 ```
 
-and open a `gif` file (e.g., `.script/path/to/{algorithm}.gif`) you like to see, e.g., in VS Code.
+and open a `gif` file (e.g., `.script/Localization/extended_kalman_filter/extended_kalman_filter.gif`) you like to see, e.g., in VS Code.
