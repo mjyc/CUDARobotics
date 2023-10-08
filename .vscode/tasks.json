@@ -5,6 +5,7 @@
         "label": "Bazel: Generate compile_commands.json",
         "type": "shell",
         "command": "bazel-compdb",
+        "problemMatcher": [],
       },
       {
         "label": "Bazel: Build (debug)",
