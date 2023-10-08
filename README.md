@@ -6,8 +6,9 @@
 
 * [Features](#features)
 * [Getting started](#getting-started)
+    * [Debugging in VS Code](#debugging-in-vs-code)
 * [Benchmark](#localization)
-    * [Extended Kalman Filter](#extended-kalman-filter)
+* [Visualization](#visualization)
 
 ## Features
 
@@ -40,13 +41,13 @@ To try Do
 ------------------------------------------------------------------------------
 Benchmark                                    Time             CPU   Iterations
 ------------------------------------------------------------------------------
-Localization/extended_kalman_filter        637 ns          636 ns      1099803
+Localization/extended_kalman_filter        496 ns          488 ns      1253402
 ```
 
 To reproduce, run
 
 ```
-bazel run --compilation_mode=opt //benchmark
+bazel run --compilation_mode=opt //Localization:benchmark
 ```
 
 or do
@@ -56,9 +57,9 @@ or do
 1. Enter "Tasks: Run Task"
 1. Enter "Bazel: Run (opt)"
 
-## Visualizations
+## Visualization
 
-Run
+To create animations, run
 ```
 .scripts/create_animations.sh  # overwrites existing gif files in .scripts/
 ```
