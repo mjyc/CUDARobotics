@@ -4,19 +4,19 @@ cc_library(
     name = "unscented_kalman_filter",
     hdrs = ["unscented_kalman_filter.h"],
     includes = ["."],
-    deps = [
-        "@eigen//:eigen3",
-        "//Localization:models_2d",
-    ],
     visibility = ["//visibility:public"],
+    deps = [
+        "//Localization:models_2d",
+        "@eigen//:eigen3",
+    ],
 )
 
 cc_binary(
     name = "simulate",
     srcs = ["simulate.cpp"],
     deps = [
-        "@eigen//:eigen3",
-        "//Localization:models_2d",
         ":unscented_kalman_filter",
+        "//Localization:models_2d",
+        "@eigen//:eigen3",
     ],
 )
