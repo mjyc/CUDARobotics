@@ -19,5 +19,6 @@
 				"BazelBuild.vscode-bazel"
 			]
 		}
-	}
+	},
+	"postCreateCommand": "bazel-compdb"
 }
