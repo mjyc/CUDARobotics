@@ -7,6 +7,9 @@ RUN if [ "${BAZELISK_VERSION}" != "none" ]; then \
     fi \
     && rm -f /tmp/install-bazel.sh
 
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends gnuplot
+
 ARG BUILDIFIER_VERSION="none"
 COPY ./install-buildifier.sh /tmp/
 RUN if [ "${BUILDIFIER_VERSION}" != "none" ]; then \
