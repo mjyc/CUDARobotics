@@ -3,7 +3,6 @@ set -e
 
 ALGORITHMS=(
     "Localization/extended_kalman_filter"
-    "Localization/unscented_kalman_filter"
 )
 
 for ALGORITHM in "${ALGORITHMS[@]}"; do

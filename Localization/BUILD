@@ -14,7 +14,6 @@ cc_binary(
     deps = [
         ":models_2d",
         "//Localization/extended_kalman_filter",
-        "//Localization/unscented_kalman_filter",
         "@google_benchmark//:benchmark_main",
     ],
 )
