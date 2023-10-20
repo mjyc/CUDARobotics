@@ -7,8 +7,8 @@ ALGORITHMS=(
 
 for ALGORITHM in "${ALGORITHMS[@]}"; do
     WORKSPACE="$(bazel info workspace)"
-    INFILE="${1:-${WORKSPACE}/.scripts/${ALGORITHM}/$(basename ${ALGORITHM}).csv}"
-    OUTFILE="${2:-${WORKSPACE}/.scripts/${ALGORITHM}/$(basename ${ALGORITHM}).gif}"
+    INFILE="${WORKSPACE}/.scripts/${ALGORITHM}/$(basename ${ALGORITHM}).csv"
+    OUTFILE="${WORKSPACE}/.scripts/${ALGORITHM}/$(basename ${ALGORITHM}).gif"
     SCRIPTFILE="${WORKSPACE}/.scripts/${ALGORITHM}/$(basename ${ALGORITHM}).plt"
 
     # Generate data

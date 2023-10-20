@@ -1,2 +1,6 @@
 bazel-*
-compile_commands.json
+
+compilew_commands.json
+
+*.csv
+*.gif
