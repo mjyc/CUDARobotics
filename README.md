@@ -2,20 +2,17 @@
 
 [CppRobotics](https://github.com/onlytailei/CppRobotics) with benchmark.
 
-## Table of Contents
-
-* [Features](#features)
-* [Getting started](#getting-started)
-    * [Debugging in VS Code](#debugging-in-vs-code)
-* [Benchmark](#localization)
-* [Visualization](#visualization)
-
 ## Features
 
 - Benchmark via [google/benchmark](https://github.com/google/benchmark)
-- Bazel with intelliSense and debugger support
 - Codespace & Dev Container support
-- Independent data generation & visualization 
+- Bazel with intelliSense and debugger support
+- [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style visualization 
+
+### Available Algorithms
+
+- Localizatoin
+    - Extended Kalman Filter
 
 ## Getting started
 
@@ -26,16 +23,11 @@ To open in Codespace, do
 1. Click on the **Codespaces tab**.
 1. Click **Create codespace on main**.
 
-### Debugging in VS Code
-
-To try Do
-
-1. Open a file, e.g., `Localization/extended_kalman_filter/simulate.cpp`
-1. Add a breakporint, e.g., by clicking left to a line number
-1. Open Command Palette via Ctrl + Shift + P (Linux)
-1. Enter "Debug: Start Debugging"
+To open in VS Code Dev Containers, checkout related documentation, e.g., [this](https://github.com/microsoft/vscode-remote-try-cpp/tree/main#vs-code-dev-containers).
 
 ## Benchmark
+
+An example run:
 
 ```
 ------------------------------------------------------------------------------
@@ -44,26 +36,34 @@ Benchmark                                    Time             CPU   Iterations
 Localization/extended_kalman_filter        496 ns          488 ns      1253402
 ```
 
-To reproduce, run
-
-```
-bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
-```
-
-or do
+To reproduce, do
 
 1. Open `Localization/extended_kalman_filter/benchmark.cpp`
 1. Open Command Palette via Ctrl + Shift + P (Linux)
 1. Enter "Tasks: Run Task"
 1. Enter "Bazel: Run (opt)"
 
-See 
+or run
+
+```
+bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
+```
 
 ## Visualization
 
-To create animations, run
+To create [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style animations, run
+
 ```
-.scripts/create_animations.sh  # overwrites existing gif files in .scripts/
+.scripts/create_animations.sh  # creates gif files in .scripts/
 ```
 
-and open a `gif` file (e.g., `.script/Localization/extended_kalman_filter/extended_kalman_filter.gif`) you like to see, e.g., in VS Code.
+and open the freshly created `gif` file (e.g., `.script/Localization/extended_kalman_filter/extended_kalman_filter.gif`) you'd like to see, e.g., in VS Code.
+
+## Debugging in VS Code
+
+Try
+
+1. Open a file, e.g., `Localization/extended_kalman_filter/simulate.cpp`
+1. Add a breakporint, e.g., by clicking left to a line number
+1. Open Command Palette via Ctrl + Shift + P (Linux)
+1. Enter "Debug: Start Debugging"
