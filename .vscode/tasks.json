@@ -40,5 +40,11 @@
         "command": "CC=clang bazel run -c opt ${relativeFileDirname}:${fileBasenameNoExtension}",
         "problemMatcher": [],
       },
+      {
+        "label": "Bazel: Run continuously (opt)",
+        "type": "shell",
+        "command": "CC=clang ibazel run --compilation_mode=opt ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "problemMatcher": [],
+      }
     ]
 }

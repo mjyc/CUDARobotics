@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
-ALGORITHMS=(
-    "Localization/extended_kalman_filter"
-)
+if [ "$#" -gt 0 ]; then
+    ALGORITHMS=("$@")  # This syntax collects all arguments into an array.
+else
+    ALGORITHMS=(
+        "Localization/extended_kalman_filter"
+    )
+fi
 
 for ALGORITHM in "${ALGORITHMS[@]}"; do
     WORKSPACE="$(bazel info workspace)"
