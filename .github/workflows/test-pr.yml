@@ -19,4 +19,4 @@ jobs:
       - name: Run tests
         id: run_tests
         shell: bash
-        run: .scripts/create_animations_test.sh
+        run: .scripts/readme_cli_test.sh
