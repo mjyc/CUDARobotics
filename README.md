@@ -30,10 +30,11 @@ To open in VS Code Dev Containers, checkout related documentation, e.g., [this](
 An example run:
 
 ```
-------------------------------------------------------------------------------
-Benchmark                                    Time             CPU   Iterations
-------------------------------------------------------------------------------
-Localization/extended_kalman_filter        496 ns          488 ns      1253402
+-----------------------------------------------------------------------------------------------------
+Benchmark                                                           Time             CPU   Iterations
+-----------------------------------------------------------------------------------------------------
+Localization/extended_kalman_filter:extended_kalman_filter       1651 ns         1421 ns       564934
+...
 ```
 
 To reproduce, do
