@@ -23,29 +23,32 @@ namespace models_2d
     return oss.str();
   }
 
-  Eigen::Vector4f MotionModel(
-      const Eigen::Vector4f &x, const Eigen::Vector2f &u, float dt)
+  std::function<Eigen::Vector4f(const Eigen::Vector4f &, const Eigen::Vector2f &, float)>
+  CreateMotionModel(const Eigen::Matrix4f &F = Eigen::Matrix4f{{1.0, 0.0, 0.0, 0.0},
+                                                               {0.0, 1.0, 0.0, 0.0},
+                                                               {0.0, 0.0, 1.0, 0.0},
+                                                               {0.0, 0.0, 0.0, 0.0}})
   {
-    Eigen::Matrix4f F{{1.0, 0.0, 0.0, 0.0},
-                      {0.0, 1.0, 0.0, 0.0},
-                      {0.0, 0.0, 1.0, 0.0},
-                      {0.0, 0.0, 0.0, 0.0}};
-
-    Matrix42f B{
-        {dt * std::cos(x(2)), 0.0},
+    return [F](const Eigen::Vector4f &x, const Eigen::Vector2f &u, float dt)
+               -> Eigen::Vector4f
+    {
+      Matrix42f B{
+          {dt * std::cos(x(2)), 0.0},
         {dt * std::sin(x(2)), 0.0},
-        {0.0, dt},
-        {1.0, 0.0}};
+          {0.0, dt},
+          {1.0, 0.0}};
+      return F * x + B * u;
+    };
+  }
 
-    return F * x + B * u;
-  };
-
-  Eigen::Vector2f ObservationModel(const Eigen::Vector4f &x)
+  std::function<Eigen::Vector2f(const Eigen::Vector4f &)>
+  CreateObservationModel(const Matrix24f &H = Matrix24f{{1.0, 0.0, 0.0, 0.0},
+                                                        {0.0, 1.0, 0.0, 0.0}})
   {
-    Matrix24f H{{1.0, 0.0, 0.0, 0.0},
-                {0.0, 1.0, 0.0, 0.0}};
-
-    return H * x;
+    return [H](const Eigen::Vector4f &x) -> Eigen::Vector2f
+    {
+      return H * x;
+    };
   }
 
   class GPSSensor
@@ -73,16 +76,6 @@ namespace models_2d
     Eigen::Matrix2f Rsim_;
   };
 
-  std::function<Eigen::Vector4f(const Eigen::Vector4f &, const Eigen::Vector2f &)>
-  CreateMotionModel(float dt)
-  {
-    return [dt](const Eigen::Vector4f &x, const Eigen::Vector2f &u)
-               -> Eigen::Vector4f
-    {
-      return MotionModel(x, u, dt);
-    };
-  }
-
   std::function<Eigen::Vector2f(const Eigen::Vector4f &)> const GPSSensorModel = [instance = GPSSensor()](
                                                                                      const Eigen::Vector4f &x) mutable -> Eigen::Vector2f
   { return instance.Measure(x); };
@@ -97,8 +90,8 @@ namespace models_2d
         : time_{init_time},
           dt_{delta_time},
           x_{std::move(init_state)},
-          motion_model_{CreateMotionModel(delta_time)},
-          observation_model_{GPSSensorModel},
+          motion_model_{CreateMotionModel()},
+          sensor_model_{GPSSensorModel},
           gen_{std::random_device{}()},
           gaussian_{0, 1},
           Qsim_{{1.0, 0.0},
@@ -111,13 +104,13 @@ namespace models_2d
       time_ += dt_;
       Eigen::Vector2f ud{u(0) + gaussian_(gen_) * Qsim_(0, 0),
                          u(1) + gaussian_(gen_) * Qsim_(1, 1)};
-      x_ = motion_model_(x_, ud);
+      x_ = motion_model_(x_, ud, dt_);
       return time_;
     }
 
     float GetTime() const noexcept { return time_; }
     Eigen::Vector4f GetState() const noexcept { return x_; }
-    Eigen::Vector2f Observe() const { return observation_model_(x_); }
+    Eigen::Vector2f Observe() const { return sensor_model_(x_); }
 
   private:
     float time_;
@@ -127,9 +120,9 @@ namespace models_2d
     Eigen::Vector4f x_;
 
     std::function<Eigen::Vector4f(
-        const Eigen::Vector4f &, const Eigen::Vector2f &)>
+        const Eigen::Vector4f &, const Eigen::Vector2f &, float dt)>
         motion_model_;
-    std::function<Eigen::Vector2f(const Eigen::Vector4f &)> observation_model_;
+    std::function<Eigen::Vector2f(const Eigen::Vector4f &)> sensor_model_;
 
     // Motion model noise parameters
     std::mt19937 gen_;

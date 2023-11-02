@@ -1,12 +1,11 @@
 #include <cmath>
-#include <tuple>
 #include <Eigen/Eigen>
 #include <models_2d.h>
 
 namespace ekf
 {
 
-  Eigen::Matrix4f JacobF(Eigen::Vector4f x, Eigen::Vector2f u, float dt)
+  Eigen::Matrix4f JacobF(const Eigen::Vector4f &x, const Eigen::Vector2f &u, float dt)
   {
     Eigen::Matrix4f JF{Eigen::Matrix4f::Identity()};
     float yaw = x(2);
@@ -24,9 +23,9 @@ namespace ekf
 
     std::function<Eigen::Vector4f(
         const Eigen::Vector4f &, const Eigen::Vector2f &, float)>
-        MotionModel{models_2d::MotionModel};
+        MotionModel{models_2d::CreateMotionModel()};
     std::function<Eigen::Vector2f(const Eigen::Vector4f &)>
-        ObservationModel{models_2d::ObservationModel};
+        ObservationModel{models_2d::CreateObservationModel()};
 
     Eigen::Matrix4f Q{
         {0.1 * 0.1, 0, 0, 0},
@@ -37,7 +36,7 @@ namespace ekf
   };
 
   void EKFEstimation(Eigen::Vector4f &xEst, Eigen::Matrix4f &PEst,
-                     Eigen::Vector2f z, Eigen::Vector2f u,
+                     const Eigen::Vector2f &z, const Eigen::Vector2f &u,
                      const EKFParameters &params)
   {
     Eigen::Vector4f xPred{params.MotionModel(xEst, u, params.dt)};

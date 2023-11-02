@@ -12,16 +12,15 @@ int main()
 {
   // EKF parameters
   ekf::EKFParameters params{
-    .dt = kDeltaTime,
-    .MotionModel = models_2d::MotionModel,
-    .ObservationModel = models_2d::ObservationModel,
-    .Q = Eigen::Matrix4f{
-      {0.1 * 0.1, 0, 0, 0},
-      {0, 0.1 * 0.1, 0, 0},
-      {0, 0, (1.0 / 180 * M_PI) * (1.0 / 180 * M_PI), 0},
-      {0, 0, 0, 0.1 * 0.1}},
-    .R = Eigen::Matrix2f::Identity()
-  };
+      .dt = kDeltaTime,
+      .MotionModel = models_2d::CreateMotionModel(),
+      .ObservationModel = models_2d::CreateObservationModel(),
+      .Q = Eigen::Matrix4f{
+          {0.1 * 0.1, 0, 0, 0},
+          {0, 0.1 * 0.1, 0, 0},
+          {0, 0, (1.0 / 180 * M_PI) * (1.0 / 180 * M_PI), 0},
+          {0, 0, 0, 0.1 * 0.1}},
+      .R = Eigen::Matrix2f::Identity()};
 
   // Estimated state
   Eigen::Vector4f xEst{kInitState};
@@ -33,6 +32,7 @@ int main()
   Eigen::Vector2f u{1.0, 0.1}; // [v yawrate]'
 
   models_2d::DifferentialDriveRobot sim{kInitTime, kDeltaTime, kInitState};
+  std::function<Eigen::Vector4f(const Eigen::Vector4f &, const Eigen::Vector2f &, float)> MotionModel = models_2d::CreateMotionModel();
   while (true)
   {
     // Simulate new state and observation
@@ -45,7 +45,7 @@ int main()
     ekf::EKFEstimation(xEst, PEst, z, u, params);
 
     // Estimate with Dead Reckoning
-    xDR = models_2d::MotionModel(xDR, u, kDeltaTime);
+    xDR = MotionModel(xDR, u, kDeltaTime);
 
     // Print
     std::cout << sim.GetTime() << ","

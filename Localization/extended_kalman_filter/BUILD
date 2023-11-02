@@ -21,12 +21,23 @@ cc_binary(
     ],
 )
 
+cc_library(
+    name = "onlytailei",
+    hdrs = ["onlytailei.h"],
+    includes = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@eigen//:eigen3",
+    ],
+)
+
 cc_binary(
     name = "benchmark",
     srcs = ["benchmark.cpp"],
     deps = [
+        ":extended_kalman_filter",
+        ":onlytailei",
         "//Localization:models_2d",
-        "//Localization/extended_kalman_filter",
         "@google_benchmark//:benchmark_main",
     ],
 )
