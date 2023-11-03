@@ -17,7 +17,6 @@ namespace models_2d
   std::string to_string(const Eigen::Vector<float, Size> &v)
   {
     std::ostringstream oss;
-    std::string s{};
     for (int i = 0; i < v.size(); ++i)
       oss << v[i] << (i < v.size() - 1 ? "," : "");
     return oss.str();
