@@ -11,7 +11,7 @@ if [ "${BAZELISK_VERSION}" = "none" ]; then
 fi
 
 echo "Installing Bazelisk..."
-curl -LSs "https://github.com/bazelbuild/bazelisk/releases/download/${BAZELISK_VERSION}/bazelisk-linux-amd64" -o "/opt/bazel/bazelisk"
+curl -LSs "https://github.com/bazelbuild/bazelisk/releases/download/v${BAZELISK_VERSION}/bazelisk-linux-amd64" -o "/opt/bazel/bazelisk"
 
 chmod +x "/opt/bazel/bazelisk"
 

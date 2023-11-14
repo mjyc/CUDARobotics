@@ -10,7 +10,7 @@ if [ "${BUILDIFIER_VERSION}" = "none" ]; then
     exit 0
 fi
 
-curl -LSs "https://github.com/bazelbuild/buildtools/releases/download/${BUILDIFIER_VERSION}/buildifier-linux-amd64" -o "/opt/bazel/buildifier"
+curl -LSs "https://github.com/bazelbuild/buildtools/releases/download/v${BUILDIFIER_VERSION}/buildifier-linux-amd64" -o "/opt/bazel/buildifier"
 
 chmod +x "/opt/bazel/buildifier"
 

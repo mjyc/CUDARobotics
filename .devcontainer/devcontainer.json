@@ -3,7 +3,7 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
-			"BAZELISK_VERSION": "v1.18.0",
+			"BAZELISK_VERSION": "1.18.0",
 			"BUILDIFIER_VERSION": "6.3.3",
 			"BAZEL_COMPDB_VERSION": "0.5.2"
 		}
