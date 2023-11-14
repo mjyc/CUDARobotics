@@ -1,6 +1,7 @@
 #include <benchmark/benchmark.h>
 #include <models_2d.h>
-#include <extended_kalman_filter.h>
+#include <utils.h>
+#include <mjyc.h>
 #include <onlytailei.h>
 
 const float kInitTime = 0.0;
@@ -9,7 +10,7 @@ const Eigen::Vector4f kInitState{0.0, 0.0, 0.0, 0.0}; // [x y yaw v]'
 
 static void extended_kalman_filter(benchmark::State &state)
 {
-    ekf::EKFParameters params{};
+    utils::EKFParameters params{};
 
     Eigen::Vector4f x{kInitState};
     Eigen::Matrix4f P{Eigen::Matrix4f::Identity()};
@@ -23,14 +24,14 @@ static void extended_kalman_filter(benchmark::State &state)
         Eigen::Vector2f z{sim.Observe()};
         state.ResumeTiming();
 
-        ekf::EKFEstimation(x, P, z, u, params);
+        mjyc::EKFEstimation(x, P, z, u, params);
     }
 }
 BENCHMARK(extended_kalman_filter)->Name("Localization/extended_kalman_filter:extended_kalman_filter");
 
 static void ekf_onlytailei(benchmark::State &state)
 {
-    ekf::EKFParameters params{};
+    utils::EKFParameters params{};
 
     Eigen::Vector4f x{kInitState};
     Eigen::Matrix4f P{Eigen::Matrix4f::Identity()};

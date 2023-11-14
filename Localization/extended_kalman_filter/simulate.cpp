@@ -1,7 +1,7 @@
 #include <iostream>
 #include <Eigen/Eigen>
 #include <models_2d.h>
-#include "extended_kalman_filter.h"
+#include <mjyc.h>
 
 const float kInitTime{0.0};
 const float kDeltaTime{0.1};
@@ -11,7 +11,7 @@ const float kMaxTime{50.0};
 int main()
 {
   // EKF parameters
-  ekf::EKFParameters params{
+  utils::EKFParameters params{
       .dt = kDeltaTime,
       .MotionModel = models_2d::CreateMotionModel(),
       .ObservationModel = models_2d::CreateObservationModel(),
@@ -42,7 +42,7 @@ int main()
     Eigen::Vector2f z{sim.Observe()};
 
     // Estimate with EKF
-    ekf::EKFEstimation(xEst, PEst, z, u, params);
+    mjyc::EKFEstimation(xEst, PEst, z, u, params);
 
     // Estimate with Dead Reckoning
     xDR = MotionModel(xDR, u, kDeltaTime);

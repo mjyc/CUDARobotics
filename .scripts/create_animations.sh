@@ -16,7 +16,7 @@ for ALGORITHM in "${ALGORITHMS[@]}"; do
     SCRIPTFILE="${WORKSPACE}/.scripts/${ALGORITHM}/$(basename ${ALGORITHM}).plt"
 
     # Generate data
-    bazel run //${ALGORITHM}:simulate > "${INFILE}"
+    CC=clang bazel run //${ALGORITHM}:simulate > "${INFILE}"
 
     # Create gif
     gnuplot -e "infile='${INFILE}'; outfile='${OUTFILE}'" "${SCRIPTFILE}"

@@ -33,9 +33,10 @@ An example run:
 -----------------------------------------------------------------------------------------------------
 Benchmark                                                           Time             CPU   Iterations
 -----------------------------------------------------------------------------------------------------
-Localization/extended_kalman_filter:extended_kalman_filter       1651 ns         1421 ns       564934
-...
+Localization/extended_kalman_filter:extended_kalman_filter        615 ns          616 ns      1125872
+Localization/extended_kalman_filter:onlytailei                    618 ns          619 ns      1136444
 ```
+Note: this result is from running the command on my local machine, not on a codepsace instance.
 
 To reproduce, do
 
@@ -47,7 +48,7 @@ To reproduce, do
 or run
 
 ```
-bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
+CC=clang bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
 ```
 
 ## Visualization
