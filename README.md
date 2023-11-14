@@ -53,13 +53,13 @@ CC=clang bazel run --compilation_mode=opt //Localization/extended_kalman_filter:
 
 ## Visualization
 
-To create [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style animations, run
+To create [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style plots, run
 
 ```
-.scripts/create_animations.sh  # creates gif files in .scripts/
+.scripts/create_plots.sh  # creates png files in .scripts/
 ```
 
-and open the freshly created `gif` file (e.g., `.script/Localization/extended_kalman_filter/extended_kalman_filter.gif`) you'd like to see, e.g., in VS Code.
+and open the freshly created `png` file (e.g., `.script/Localization/extended_kalman_filter/extended_kalman_filter.png`) you'd like to see, e.g., in VS Code.
 
 ## Debugging in VS Code
 

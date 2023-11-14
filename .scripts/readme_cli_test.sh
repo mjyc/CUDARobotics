@@ -18,13 +18,13 @@ for ALGORITHM in "${ALGORITHMS[@]}"; do
     fi
 done
 
-# Test .scripts/create_animations.sh
-.scripts/create_animations.sh
+# Test .scripts/create_plots.sh
+.scripts/create_plots.sh
 
 if [[ $? -eq 0 ]]; then
-    echo "✅ PASS: \".scripts/create_animations.sh\""
+    echo "✅ PASS: \".scripts/create_plots.sh\""
 else
-    echo "❌ FAIL: \".scripts/create_animations.sh\""
+    echo "❌ FAIL: \".scripts/create_plots.sh\""
     FAILED_TESTS+=("${ALGORITHM}")
 fi
 
