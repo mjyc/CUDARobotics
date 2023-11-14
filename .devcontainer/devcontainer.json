@@ -17,7 +17,8 @@
 			"extensions": [
 				"ms-vscode.cpptools-extension-pack",
 				"BazelBuild.vscode-bazel",
-				"ms-python.python"
+				"ms-python.python",
+				"ms-python.black-formatter"
 			]
 		}
 	},

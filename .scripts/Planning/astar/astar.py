@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 Cell = tuple[int, int]
 
+
 def save_astar_solution_as_png(
     obstacles: list[Cell],
     start: Cell,
@@ -30,10 +31,11 @@ def save_astar_solution_as_png(
     plt.savefig(filename)
     plt.close()
 
+
 if __name__ == "__main__":
-    with open(argv[1], 'r') as file:
+    with open(argv[1], "r") as file:
         data = load(file)
-        
+
         obstacles = data["obstacles"]
         start = data["start"]
         goal = data["goal"]
