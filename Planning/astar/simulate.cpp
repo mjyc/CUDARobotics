@@ -35,13 +35,14 @@ json ToJSON(
     const std::vector<Cell> &obstacles,
     const Cell &start,
     const Cell &goal,
-    const std::vector<Cell> &path)
+    const std::vector<Cell> &path,
+    const std::vector<Cell> &visited)
 {
     json j;
     j["obstacles"] = json::array();
-    for (const auto &obstacle : obstacles)
+    for (const auto &cell : obstacles)
     {
-        j["obstacles"].push_back({obstacle.first, obstacle.second});
+        j["obstacles"].push_back({cell.first, cell.second});
     }
     j["start"] = {start.first, start.second};
     j["goal"] = {goal.first, goal.second};
@@ -50,21 +51,27 @@ json ToJSON(
     {
         j["path"].push_back(cell);
     }
+    j["visited"] = json::array();
+    for (const auto &cell : visited)
+    {
+        j["visited"].push_back(cell);
+    }
     return j;
 }
 
 int main()
 {
-    std::vector<Cell> obstacles{CreateObstacles()};
-    Cell start{10, 10};
-    Cell goal{50, 50};
+    const std::vector<Cell> obstacles{CreateObstacles()};
+    const Cell start{10, 10};
+    const Cell goal{50, 50};
 
     const std::function<float(const Cell &, const Cell &)> h_fnc = [](const Cell &c1, const Cell &c2)
     {
         return Dist(c1, c2);
     };
-    std::vector<Cell> path{AStar(obstacles, start, goal, h_fnc)};
+    std::vector<Cell> visited;
+    const std::vector<Cell> path{AStar(obstacles, start, goal, h_fnc, visited)};
 
-    std::cout << ToJSON(obstacles, start, goal, path).dump() << std::endl;
+    std::cout << ToJSON(obstacles, start, goal, path, visited).dump() << std::endl;
     return 0;
 }

@@ -13,7 +13,8 @@ std::vector<Cell> AStar(
     const std::vector<Cell> &obstacles,
     const Cell &start,
     const Cell &goal,
-    const std::function<float(const Cell &, const Cell &)> &h_fnc)
+    const std::function<float(const Cell &, const Cell &)> &h_fnc,
+    const std::vector<Cell> &visited = {})
 {
     std::vector<Cell> path;
     return path;
