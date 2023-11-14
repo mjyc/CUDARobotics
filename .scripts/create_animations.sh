@@ -13,16 +13,12 @@ fi
 for ALGORITHM in "${ALGORITHMS[@]}"; do
     WORKSPACE="$(bazel info workspace)"
     INFILE="${WORKSPACE}/.scripts/${ALGORITHM}/$(basename ${ALGORITHM}).log"
-    OUTFILE="${WORKSPACE}/.scripts/${ALGORITHM}/$(basename ${ALGORITHM})"
-    SCRIPTFILE="${WORKSPACE}/.scripts/${ALGORITHM}/$(basename ${ALGORITHM})"
+    OUTFILE="${WORKSPACE}/.scripts/${ALGORITHM}/$(basename ${ALGORITHM}).png"
+    SCRIPTFILE="${WORKSPACE}/.scripts/${ALGORITHM}/$(basename ${ALGORITHM}).py"
 
     # Generate data
     CC=clang bazel run //${ALGORITHM}:simulate > "${INFILE}"
 
     # Create gif
-    if [[ ${ALGORITHM} == "Localization/extended_kalman_filter" ]]; then
-        gnuplot -e "infile='${INFILE}'; outfile='${OUTFILE}.gif'" "${SCRIPTFILE}.plt"
-    else
-        python3 "${SCRIPTFILE}.py" "${INFILE}" "${OUTFILE}.png"
-    fi
+    python3 "${SCRIPTFILE}" "${INFILE}" "${OUTFILE}"
 done

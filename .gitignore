@@ -3,5 +3,4 @@ bazel-*
 compile_commands.json
 
 *.log
-*.gif
 *.png
