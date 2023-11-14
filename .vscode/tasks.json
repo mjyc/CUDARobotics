@@ -41,9 +41,9 @@
         "problemMatcher": [],
       },
       {
-        "label": "Bazel: Run continuously (opt)",
+        "label": "Bazel: Run continuously",
         "type": "shell",
-        "command": "CC=clang ibazel run --compilation_mode=opt ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "command": "CC=clang ibazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
         "problemMatcher": [],
       }
     ]
