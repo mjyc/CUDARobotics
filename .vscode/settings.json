@@ -9,5 +9,6 @@
   "C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
   "C_Cpp.codeAnalysis.clangTidy.args": [
     "-checks=clang-diagnostic-*,clang-analyzer-*,cppcoreguidelines-*,modernize-*,-modernize-use-trailing-return-type,-cppcoreguidelines-avoid-magic-numbers"
-  ]
+  ],
+  "C_Cpp.codeAnalysis.clangTidy.path": "/usr/bin/clang-tidy-11"
 }
