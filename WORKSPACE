@@ -14,3 +14,10 @@ http_archive(
     sha256 = "1f71c72ce08d2c1310011ea6436b31e39ccab8c2db94186d26657d41747c85d6",
     strip_prefix = "benchmark-1.6.0",
 )
+
+http_archive(
+    name = "nlohmann_json",
+    urls = ["https://github.com/nlohmann/json/releases/download/v3.11.2/include.zip"],
+    sha256 = "e5c7a9f49a16814be27e4ed0ee900ecd0092bfb7dbfca65b5a421b774dccaaed",
+    build_file = "@//:json.BUILD",
+)

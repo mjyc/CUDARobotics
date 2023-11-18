@@ -1,8 +1,8 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_library(
-    name = "extended_kalman_filter",
-    hdrs = ["extended_kalman_filter.h"],
+    name = "utils",
+    hdrs = ["utils.h"],
     includes = ["."],
     visibility = ["//visibility:public"],
     deps = [
@@ -11,11 +11,13 @@ cc_library(
     ],
 )
 
-cc_binary(
-    name = "simulate",
-    srcs = ["simulate.cpp"],
+cc_library(
+    name = "mjyc",
+    hdrs = ["mjyc.h"],
+    includes = ["."],
+    visibility = ["//visibility:public"],
     deps = [
-        ":extended_kalman_filter",
+        ":utils",
         "//Localization:models_2d",
         "@eigen//:eigen3",
     ],
@@ -32,10 +34,21 @@ cc_library(
 )
 
 cc_binary(
+    name = "simulate",
+    srcs = ["simulate.cpp"],
+    deps = [
+        ":mjyc",
+        "//Localization:models_2d",
+        "@eigen//:eigen3",
+    ],
+)
+
+cc_binary(
     name = "benchmark",
     srcs = ["benchmark.cpp"],
     deps = [
-        ":extended_kalman_filter",
+        ":utils",
+        ":mjyc",
         ":onlytailei",
         "//Localization:models_2d",
         "@google_benchmark//:benchmark_main",

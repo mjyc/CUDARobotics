@@ -33,9 +33,10 @@ An example run:
 -----------------------------------------------------------------------------------------------------
 Benchmark                                                           Time             CPU   Iterations
 -----------------------------------------------------------------------------------------------------
-Localization/extended_kalman_filter:extended_kalman_filter       1651 ns         1421 ns       564934
-...
+Localization/extended_kalman_filter:extended_kalman_filter        615 ns          616 ns      1125872
+Localization/extended_kalman_filter:onlytailei                    618 ns          619 ns      1136444
 ```
+Note: this result is from running the command on my local machine, not on a codepsace instance.
 
 To reproduce, do
 
@@ -47,18 +48,18 @@ To reproduce, do
 or run
 
 ```
-bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
+CC=clang bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
 ```
 
 ## Visualization
 
-To create [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style animations, run
+To create [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style plots, run
 
 ```
-.scripts/create_animations.sh  # creates gif files in .scripts/
+.scripts/create_plots.sh  # creates png files in .scripts/
 ```
 
-and open the freshly created `gif` file (e.g., `.script/Localization/extended_kalman_filter/extended_kalman_filter.gif`) you'd like to see, e.g., in VS Code.
+and open the freshly created `png` file (e.g., `.script/Localization/extended_kalman_filter/extended_kalman_filter.png`) you'd like to see, e.g., in VS Code.
 
 ## Debugging in VS Code
 

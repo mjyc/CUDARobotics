@@ -1,0 +1,31 @@
+---
+Language: Cpp
+Standard: c++20
+BasedOnStyle: Google
+
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: Empty
+AccessModifierOffset: -2
+TabWidth: 2
+ContinuationIndentWidth: 2
+UseTab: Never
+BreakBeforeBraces: Allman
+BreakConstructorInitializers: BeforeComma
+ColumnLimit: 80
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+DerivePointerAlignment: false
+FixNamespaceComments: true
+PointerAlignment: Left
+ReflowComments: true
+SortIncludes: true
+
+IncludeCategories:
+  - Regex: "^<.*/"
+    Priority: 1
+    SortPriority: 0
+  - Regex: "^<.*"
+    Priority: 2
+    SortPriority: 0
+  - Regex: ".*"
+    Priority: 3
+    SortPriority: 0

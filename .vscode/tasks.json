@@ -8,9 +8,9 @@
         "problemMatcher": [],
       },
       {
-        "label": "Bazel: Build (debug)",
+        "label": "Bazel: Build",
         "type": "shell",
-        "command": "CC=clang bazel build -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "command": "CC=clang bazel build ${relativeFileDirname}:${fileBasenameNoExtension}",
         "dependsOn": [
           "Bazel: Generate compile_commands.json"
         ],
@@ -18,6 +18,14 @@
           "kind": "build",
           "isDefault": true,
         },
+      },
+      {
+        "label": "Bazel: Build (debug)",
+        "type": "shell",
+        "command": "CC=clang bazel build -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "dependsOn": [
+          "Bazel: Generate compile_commands.json"
+        ],
       },
       {
         "label": "Bazel: Run",
@@ -29,9 +37,6 @@
         "label": "Bazel: Run (debug)",
         "type": "shell",
         "command": "CC=clang bazel run -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
-        "dependsOn": [
-          "Bazel: Build (debug)"
-        ],
         "problemMatcher": [],
       },
       {
@@ -41,10 +46,22 @@
         "problemMatcher": [],
       },
       {
-        "label": "Bazel: Run continuously (opt)",
+        "label": "iBazel: Run",
         "type": "shell",
-        "command": "CC=clang ibazel run --compilation_mode=opt ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "command": "CC=clang ibazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
         "problemMatcher": [],
+        "dependsOn": [
+          "Bazel: Generate compile_commands.json"
+        ],
+      },
+      {
+        "label": "iBazel: Create Plot (use this with simulate.cpp)",
+        "type": "shell",
+        "command": "CC=clang ibazel -run_command_after_success='.scripts/${relativeFileDirname}/${fileDirnameBasename}.py .scripts/${relativeFileDirname}/${fileDirnameBasename}.log .scripts/${relativeFileDirname}/${fileDirnameBasename}.png' run ${relativeFileDirname}:${fileBasenameNoExtension} -- $(pwd)/.scripts/${relativeFileDirname}/${fileDirnameBasename}.log",
+        "problemMatcher": [],
+        "dependsOn": [
+          "Bazel: Generate compile_commands.json"
+        ],
       }
     ]
 }

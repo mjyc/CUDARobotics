@@ -2,5 +2,5 @@ bazel-*
 
 compile_commands.json
 
-*.csv
-*.gif
+*.log
+*.png
