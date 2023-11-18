@@ -69,3 +69,14 @@ Try
 1. Add a breakporint, e.g., by clicking left to a line number
 1. Open Command Palette via Ctrl + Shift + P (Linux)
 1. Enter "Debug: Start Debugging"
+
+### Update Visualization on Change
+
+Do
+
+1. Open `Localization/extended_kalman_filter/simulate.cpp`
+1. Open Command Palette via Ctrl + Shift + P (Linux)
+1. Enter "Tasks: Run Task"
+1. Enter "iBazel: Create Plot (use this with simulate.cpp)"
+
+The created plot--e.g., `.script/Localization/extended_kalman_filter/extended_kalman_filter.png`--will be updated on every code change.
