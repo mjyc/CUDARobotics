@@ -1,5 +1,6 @@
 #include <nlohmann/json.hpp>
 
+#include <fstream>
 #include <iostream>
 #include <mjyc.h>
 #include <utility>
@@ -57,20 +58,39 @@ json ToJSON(const std::vector<Cell>& obstacles, const Cell& start,
   return j;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+  // A* parameters
   const std::vector<Cell> obstacles{CreateObstacles()};
   const Cell start{10, 10};
   const Cell goal{50, 50};
-
   const std::function<float(const Cell&, const Cell&)> h_fnc =
-    [](const Cell& c1, const Cell& c2) {
-      return Dist(c1, c2);
-    };
+    [](const Cell& c1, const Cell& c2)
+  {
+    return CalcDist(c1, c2);
+  };
   std::vector<Cell> visited;
-  const std::vector<Cell> path{AStar(obstacles, start, goal, h_fnc, visited)};
 
-  std::cout << ToJSON(obstacles, start, goal, path, visited).dump()
-            << std::endl;
+  // Plan with A*
+  const std::vector<Cell> path = AStar(obstacles, start, goal, h_fnc, visited);
+
+  // Print
+  if (argc <= 1)
+  {
+    std::cout << ToJSON(obstacles, start, goal, path, visited).dump()
+              << std::endl;
+    return 0;
+  }
+
+  // Save
+  std::string filename = argv[1];  // NOLINT
+  std::ofstream file(filename);
+  if (!file)
+  {
+    std::cerr << "Error opening file: " << filename << std::endl;
+    return 1;
+  }
+  file << ToJSON(obstacles, start, goal, path, visited).dump() << std::endl;
+
   return 0;
 }

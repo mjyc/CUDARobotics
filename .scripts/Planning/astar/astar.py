@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from sys import argv
 from json import load
 
@@ -14,11 +16,11 @@ def save_astar_solution_as_png(
     visited: list[Cell],
     filename: str = "astar.png",
 ) -> None:
-    ox, oy = [list(lst) for lst in zip(*obstacles)]
+    ox, oy = [list(lst) for lst in zip(*obstacles)] if obstacles else [[], []]
     sx, sy = start
     gx, gy = goal
-    px, py = [list(lst) for lst in zip(*path)]
-    vx, vy = [list(lst) for lst in zip(*visited)]
+    px, py = [list(lst) for lst in zip(*path)] if path else [[], []]
+    vx, vy = [list(lst) for lst in zip(*visited)] if visited else [[], []]
     plt.plot(ox, oy, ".k")
     plt.plot(vx, vy, "xc")
     plt.plot(sx, sy, "og")
