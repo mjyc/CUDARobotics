@@ -1,6 +1,7 @@
 #include <Eigen/Eigen>
 
 #include <iostream>
+#include <fstream>
 #include <mjyc.h>
 #include <models_2d.h>
 
@@ -9,7 +10,7 @@ const float kDeltaTime{0.1};
 const Eigen::Vector4f kInitState{0.0, 0.0, 0.0, 0.0};  // [x y yaw v]'
 const float kMaxTime{50.0};
 
-int main()
+int main(int argc, char* argv[])
 {
   // EKF parameters
   utils::EKFParameters params{
@@ -38,6 +39,20 @@ int main()
                                 float)>
     MotionModel = models_2d::CreateMotionModel();
 
+  
+  std::ofstream file;
+  std::ostream* out = &std::cout;
+  if (argc > 1) {
+    std::string filename{argv[1]}; // NOLINT
+    file.open(filename);
+    if (!file)
+    {
+      std::cerr << "Error opening file: " << filename << std::endl;
+      return 1;
+    }
+    out = &file;
+  }
+
   while (true)
   {
     // Simulate new state and observation
@@ -52,10 +67,10 @@ int main()
     // Estimate with Dead Reckoning
     xDR = MotionModel(xDR, u, kDeltaTime);
 
-    // Print
-    std::cout << sim.GetTime() << "," << models_2d::to_string(x) << ","
-              << models_2d::to_string(z) << "," << models_2d::to_string(xEst)
-              << "," << models_2d::to_string(xDR) << std::endl;
+    // Print or save
+    *out << sim.GetTime() << "," << models_2d::to_string(x) << ","
+            << models_2d::to_string(z) << "," << models_2d::to_string(xEst)
+            << "," << models_2d::to_string(xDR) << std::endl;
 
     if (sim_time > kMaxTime) break;
   }
