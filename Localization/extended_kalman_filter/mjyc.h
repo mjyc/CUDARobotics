@@ -5,6 +5,7 @@
 
 namespace mjyc
 {
+  
   Eigen::Matrix4f JacobF(const Eigen::Vector4f &x, const Eigen::Vector2f &u, float dt)
   {
     Eigen::Matrix4f JF{Eigen::Matrix4f::Identity()};

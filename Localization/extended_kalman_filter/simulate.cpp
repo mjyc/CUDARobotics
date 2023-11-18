@@ -31,10 +31,13 @@ int main()
   // Fixed control input
   Eigen::Vector2f u{1.0, 0.1};  // [v yawrate]'
 
+  // Robot model
   models_2d::DifferentialDriveRobot sim{kInitTime, kDeltaTime, kInitState};
+  // Motion model for dead reckoning
   std::function<Eigen::Vector4f(const Eigen::Vector4f&, const Eigen::Vector2f&,
                                 float)>
     MotionModel = models_2d::CreateMotionModel();
+
   while (true)
   {
     // Simulate new state and observation
