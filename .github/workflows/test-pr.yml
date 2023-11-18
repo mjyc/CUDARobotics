@@ -18,7 +18,7 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update
-          sudo DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends gnuplot
+          sudo DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends gnuplot python3-numpy python3-matplotlib python3-tk
       - name: Run tests
         id: run_tests
         shell: bash
