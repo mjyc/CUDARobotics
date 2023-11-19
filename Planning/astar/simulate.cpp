@@ -2,9 +2,10 @@
 
 #include <fstream>
 #include <iostream>
-#include <mjyc.h>
 #include <utility>
 #include <vector>
+
+#include "Planning/astar/mjyc.h"
 
 using json = nlohmann::json;
 using Cell = std::pair<short int, short int>;  // x, y
@@ -47,14 +48,10 @@ json ToJSON(const std::vector<Cell>& obstacles, const Cell& start,
   j["goal"] = {goal.first, goal.second};
   j["path"] = json::array();
   for (const auto& cell : path)
-  {
     j["path"].push_back(cell);
-  }
   j["visited"] = json::array();
   for (const auto& cell : visited)
-  {
     j["visited"].push_back(cell);
-  }
   return j;
 }
 
@@ -74,23 +71,20 @@ int main(int argc, char* argv[])
   // Plan with A*
   const std::vector<Cell> path = AStar(obstacles, start, goal, h_fnc, visited);
 
-  // Print
-  if (argc <= 1)
-  {
-    std::cout << ToJSON(obstacles, start, goal, path, visited).dump()
-              << std::endl;
-    return 0;
+  // Print or save everything
+  std::ofstream file;
+  std::ostream* out = &std::cout;
+  if (argc > 1) {
+    std::string filename = argv[1];  // NOLINT
+    file.open(filename);
+    if (!file)
+    {
+      std::cerr << "Error opening file: " << filename << std::endl;
+      return 1;
+    }
+    out = &file;
   }
-
-  // Save
-  std::string filename = argv[1];  // NOLINT
-  std::ofstream file(filename);
-  if (!file)
-  {
-    std::cerr << "Error opening file: " << filename << std::endl;
-    return 1;
-  }
-  file << ToJSON(obstacles, start, goal, path, visited).dump() << std::endl;
+  *out << ToJSON(obstacles, start, goal, path, visited).dump() << std::endl;
 
   return 0;
 }
