@@ -2,9 +2,10 @@
 
 #include <fstream>
 #include <iostream>
-#include <mjyc.h>
 #include <utility>
 #include <vector>
+
+#include "Planning/astar/mjyc.h"
 
 using json = nlohmann::json;
 using Cell = std::pair<short int, short int>;  // x, y

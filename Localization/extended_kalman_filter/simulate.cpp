@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <fstream>
-#include <mjyc.h>
-#include <models_2d.h>
+#include "Localization/extended_kalman_filter/mjyc.h"
+#include "Localization/models_2d.h"
 
 const float kInitTime{0.0};
 const float kDeltaTime{0.1};
@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
                                 float)>
     MotionModel = models_2d::CreateMotionModel();
 
-  
+  // Create ostream
   std::ofstream file;
   std::ostream* out = &std::cout;
   if (argc > 1) {

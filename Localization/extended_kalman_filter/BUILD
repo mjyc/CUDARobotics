@@ -3,7 +3,6 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_library(
     name = "utils",
     hdrs = ["utils.h"],
-    includes = ["."],
     visibility = ["//visibility:public"],
     deps = [
         "//Localization:models_2d",
@@ -14,7 +13,6 @@ cc_library(
 cc_library(
     name = "mjyc",
     hdrs = ["mjyc.h"],
-    includes = ["."],
     visibility = ["//visibility:public"],
     deps = [
         ":utils",
@@ -26,7 +24,6 @@ cc_library(
 cc_library(
     name = "onlytailei",
     hdrs = ["onlytailei.h"],
-    includes = ["."],
     visibility = ["//visibility:public"],
     deps = [
         "@eigen//:eigen3",
