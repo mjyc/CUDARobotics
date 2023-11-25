@@ -15,6 +15,23 @@ def plot(
     dead_reckoning_y: np.ndarray,
     output_filename: str,
 ):
+    """
+    Plots the ground truth, observation, EKF, and dead reckoning data on a graph.
+
+    Args:
+        ground_truth_x (np.ndarray): Array of x-coordinates for ground truth data.
+        ground_truth_y (np.ndarray): Array of y-coordinates for ground truth data.
+        observation_x (np.ndarray): Array of x-coordinates for observation data.
+        observation_y (np.ndarray): Array of y-coordinates for observation data.
+        ekf_x (np.ndarray): Array of x-coordinates for EKF data.
+        ekf_y (np.ndarray): Array of y-coordinates for EKF data.
+        dead_reckoning_x (np.ndarray): Array of x-coordinates for dead reckoning data.
+        dead_reckoning_y (np.ndarray): Array of y-coordinates for dead reckoning data.
+        output_filename (str): Filename to save the plot.
+
+    Returns:
+        None
+    """
     ground_truth_x = data[:, 1]
     ground_truth_y = data[:, 2]
     observation_x = data[:, 5]

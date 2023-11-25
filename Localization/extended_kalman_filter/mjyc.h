@@ -8,6 +8,14 @@
 namespace mjyc
 {
 
+/**
+ * Calculates the Jacobian matrix of the state transition function F.
+ *
+ * @param x The state vector.
+ * @param u The control input vector.
+ * @param dt The time step.
+ * @return The Jacobian matrix of F.
+ */
 Eigen::Matrix4f JacobF(const Eigen::Vector4f& x, const Eigen::Vector2f& u,
                        float dt)
 {
@@ -22,6 +30,15 @@ Eigen::Matrix4f JacobF(const Eigen::Vector4f& x, const Eigen::Vector2f& u,
   return JF;
 }
 
+/**
+ * Performs Extended Kalman Filter estimation.
+ *
+ * @param xEst The estimated state vector.
+ * @param PEst The estimated state covariance matrix.
+ * @param z The measurement vector.
+ * @param u The control input vector.
+ * @param params The EKF parameters.
+ */
 void EKFEstimation(Eigen::Vector4f& xEst, Eigen::Matrix4f& PEst,
                    const Eigen::Vector2f& z, const Eigen::Vector2f& u,
                    const utils::EKFParameters& params)

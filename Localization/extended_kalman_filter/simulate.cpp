@@ -1,7 +1,8 @@
 #include <Eigen/Eigen>
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
+
 #include "Localization/extended_kalman_filter/mjyc.h"
 #include "Localization/models_2d.h"
 
@@ -42,8 +43,9 @@ int main(int argc, char* argv[])
   // Create ostream
   std::ofstream file;
   std::ostream* out = &std::cout;
-  if (argc > 1) {
-    std::string filename{argv[1]}; // NOLINT
+  if (argc > 1)
+  {
+    std::string filename{argv[1]};  // NOLINT
     file.open(filename);
     if (!file)
     {
@@ -69,8 +71,8 @@ int main(int argc, char* argv[])
 
     // Print or save
     *out << sim.GetTime() << "," << models_2d::to_string(x) << ","
-            << models_2d::to_string(z) << "," << models_2d::to_string(xEst)
-            << "," << models_2d::to_string(xDR) << std::endl;
+         << models_2d::to_string(z) << "," << models_2d::to_string(xEst) << ","
+         << models_2d::to_string(xDR) << std::endl;
 
     if (sim_time > kMaxTime) break;
   }
