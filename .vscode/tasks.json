@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "Bazel: Generate compile_commands.json",
+        "label": "bazel-compdb: Generate compile_commands.json",
         "type": "shell",
         "command": "bazel-compdb",
         "problemMatcher": [],
@@ -46,6 +46,15 @@
         "problemMatcher": [],
       },
       {
+        "label": "Bazel: Generate and Open Plot",
+        "type": "shell",
+        "command": "CXX=clang++ bazel build ${relativeFileDirname}:generate_plot && code $(bazel info bazel-bin)/${relativeFileDirname}/plot.png",
+        "problemMatcher": [],
+        "dependsOn": [
+          "Bazel: Generate compile_commands.json"
+        ],
+      },
+      {
         "label": "iBazel: Run",
         "type": "shell",
         "command": "CXX=clang++ ibazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
@@ -55,22 +64,18 @@
         ],
       },
       {
-        "label": "iBazel: Generate and Open Plot (use this with plot.py)",
+        "label": "iBazel: Generate Plot",
         "type": "shell",
-        "command": "bash",
-        "args": [
-            "-c",
-            "CXX=clang++ ibazel -run_command_after_success=\"code $(bazel info bazel-bin)/${relativeFileDirname}/${fileBasenameNoExtension}.png\" build ${relativeFileDirname}:generate_plot"
-        ],
+        "command": "CXX=clang++ ibazel build ${relativeFileDirname}:generate_plot",
         "problemMatcher": [],
         "dependsOn": [
           "Bazel: Generate compile_commands.json"
         ],
       },
       {
-        "label": "Open Generated Plot (use this with plot.py)",
+        "label": "shell: Open Plot",
         "type": "shell",
-        "command": "code $(bazel info bazel-bin)/${relativeFileDirname}/${fileBasenameNoExtension}.png",
+        "command": "code $(bazel info bazel-bin)/${relativeFileDirname}/plot.png",
         "problemMatcher": []
       }
     ]

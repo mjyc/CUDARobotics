@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <deque>
+#include <memory>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -34,17 +35,18 @@ float CalcDist(const Cell& a, const Cell& b)
 /**
  * A* algorithm for path planning.
  *
- * @param obstacles The list of obstacle cells.
- * @param start The start cell.
+ * @param obstacles A vector of cells representing the obstacles to avoid.
+ * @param start The starting cell.
  * @param goal The goal cell.
- * @param h_fnc The heuristic function to estimate the cost from each cell to the goal.
- * @param debug_visited Optional parameter to store the visited cells for debugging purposes.
- * @return The shortest path from the start cell to the goal cell.
+ * @param h_fnc The heuristic function to estimate the cost of reaching the goal.
+ * @param debug_visited (optional) A shared pointer to a vector of cells to store
+ *                      the visited cells for debugging purposes.
+ * @return A vector of cells representing the shortest path from start to goal.
  */
 std::vector<Cell> AStar(
   const std::vector<Cell>& obstacles, const Cell& start, const Cell& goal,
   const std::function<float(const Cell&, const Cell&)>& h_fnc,
-  std::optional<std::vector<Cell>> debug_visited = std::nullopt)
+  std::shared_ptr<std::vector<Cell>> debug_visited = nullptr)
 {
   using QueueElement = std::pair<float, Cell>;  // f_score, position
 
@@ -54,7 +56,7 @@ std::vector<Cell> AStar(
   std::unordered_map<Cell, float> f_scores;
   std::unordered_map<Cell, float> g_scores;
   std::unordered_map<Cell, Cell> prevs;  // for reconstructing the path
-  std::deque<QueueElement> queue;  // for selecting the next cell to visit
+  std::deque<QueueElement> queue;        // for selecting the next cell to visit
 
   open_set.insert(start);
   g_scores[start] = CalcDist(start, goal);

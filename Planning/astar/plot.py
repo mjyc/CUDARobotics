@@ -52,9 +52,10 @@ if __name__ == "__main__":
 
     input_filename = argv[1]
     output_filename = argv[2]
-    
+
     with open(input_filename, "r") as file:
         data = load(file)
+
         save_astar_solution_as_png(
             obstacles=data["obstacles"],
             start=data["start"],

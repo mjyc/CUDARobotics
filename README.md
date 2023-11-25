@@ -2,17 +2,19 @@
 
 [CppRobotics](https://github.com/onlytailei/CppRobotics) with benchmark.
 
+
 ## Features
 
 - Benchmark via [google/benchmark](https://github.com/google/benchmark)
 - Codespace & Dev Container support
-- Bazel with intelliSense and debugger support
+- Bazel with intelliSense, debugger support, and more
 - [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style visualization 
 
 ### Available Algorithms
 
 - Localizatoin
     - Extended Kalman Filter
+
 
 ## Getting started
 
@@ -24,6 +26,7 @@ To open in Codespace, do
 1. Click **Create codespace on main**.
 
 To open in VS Code Dev Containers, checkout related documentation, e.g., [this](https://github.com/microsoft/vscode-remote-try-cpp/tree/main#vs-code-dev-containers).
+
 
 ## Benchmark
 
@@ -51,17 +54,40 @@ or run
 CXX=clang++ bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
 ```
 
+
 ## Visualization
 
-To create [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style plots, run
+To create [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style plots, do
+
+1. Open `Localization/extended_kalman_filter/plot.png`
+1. Open Command Palette via Ctrl + Shift + P (Linux)
+1. Enter "Tasks: Run Task"
+1. Enter "Bazel: Generate and Open Plot"
+
+or run
 
 ```
-.scripts/create_plots.sh  # creates png files in .scripts/
+CXX=clang++ bazel build //Localization/extended_kalman_filter:generate_plot
 ```
 
-and open the freshly created `png` file (e.g., `.script/Localization/extended_kalman_filter/extended_kalman_filter.png`) you'd like to see, e.g., in VS Code.
+To view the freshly generated plot, do
 
-## Debugging in VS Code
+1. Open `Localization/extended_kalman_filter/plot.py` (or any file in that folder)
+1. Open Command Palette via Ctrl + Shift + P (Linux)
+1. Enter "Tasks: Run Task"
+1. Enter "iBazel: Open Plot"
+
+or run
+
+```
+code $(bazel info bazel-bin)/Localization/extended_kalman_filter/plot.png
+```
+Note: the `plot.png` tab closes itself on regenerating the plot.
+
+
+## DX Features
+
+### Debugging in VS Code
 
 Try
 
@@ -70,13 +96,17 @@ Try
 1. Open Command Palette via Ctrl + Shift + P (Linux)
 1. Enter "Debug: Start Debugging"
 
-### Update Visualization on Change
+### Regenerating Plot on Change
 
-Do
+To regenerate the plot whenever a dependent file content changes, do
 
-1. Open `Localization/extended_kalman_filter/simulate.cpp`
+1. Open `Localization/extended_kalman_filter/simulate.py` (or any file in that folder)
 1. Open Command Palette via Ctrl + Shift + P (Linux)
 1. Enter "Tasks: Run Task"
-1. Enter "iBazel: Create Plot (use this with simulate.cpp)"
+1. Enter "iBazel: Generate Plot"
 
-The created plot--e.g., `.script/Localization/extended_kalman_filter/extended_kalman_filter.png`--will be updated on every code change.
+or run
+
+```
+CXX=clang++ ibazel build ${relativeFileDirname}:generate_plot
+```

@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -12,7 +13,7 @@ using Cell = std::pair<short int, short int>;  // x, y
 
 /**
  * @brief Creates obstacles for the simulation.
- * 
+ *
  * @return std::vector<Cell> - A vector of cells representing the obstacles.
  */
 std::vector<Cell> CreateObstacles()
@@ -41,7 +42,7 @@ std::vector<Cell> CreateObstacles()
 
 /**
  * @brief Converts the given data into a JSON object.
- * 
+ *
  * @param obstacles A vector of cells representing obstacles.
  * @param start The starting cell.
  * @param goal The goal cell.
@@ -51,7 +52,7 @@ std::vector<Cell> CreateObstacles()
  */
 json ToJSON(const std::vector<Cell>& obstacles, const Cell& start,
             const Cell& goal, const std::vector<Cell>& path,
-            const std::vector<Cell>& visited)
+            const std::shared_ptr<std::vector<Cell>>& visited)
 {
   json j;
   j["obstacles"] = json::array();
@@ -62,11 +63,9 @@ json ToJSON(const std::vector<Cell>& obstacles, const Cell& start,
   j["start"] = {start.first, start.second};
   j["goal"] = {goal.first, goal.second};
   j["path"] = json::array();
-  for (const auto& cell : path)
-    j["path"].push_back(cell);
+  for (const auto& cell : path) j["path"].push_back(cell);
   j["visited"] = json::array();
-  for (const auto& cell : visited)
-    j["visited"].push_back(cell);
+  for (const auto& cell : *visited) j["visited"].push_back(cell);
   return j;
 }
 
@@ -81,7 +80,8 @@ int main(int argc, char* argv[])
   {
     return CalcDist(c1, c2);
   };
-  std::vector<Cell> visited;
+  std::shared_ptr<std::vector<Cell>> visited =
+    std::make_shared<std::vector<Cell>>();
 
   // Plan with A*
   const std::vector<Cell> path = AStar(obstacles, start, goal, h_fnc, visited);
@@ -89,7 +89,8 @@ int main(int argc, char* argv[])
   // Print or save everything
   std::ofstream file;
   std::ostream* out = &std::cout;
-  if (argc > 1) {
+  if (argc > 1)
+  {
     std::string filename = argv[1];  // NOLINT
     file.open(filename);
     if (!file)
