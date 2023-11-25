@@ -55,13 +55,23 @@
         ],
       },
       {
-        "label": "iBazel: Create Plot (use this with simulate.cpp)",
+        "label": "iBazel: Generate and Open Plot (use this with plot.py)",
         "type": "shell",
-        "command": "CC=clang ibazel -run_command_after_success='.scripts/${relativeFileDirname}/${fileDirnameBasename}.py .scripts/${relativeFileDirname}/${fileDirnameBasename}.log .scripts/${relativeFileDirname}/${fileDirnameBasename}.png' run ${relativeFileDirname}:${fileBasenameNoExtension} -- $(pwd)/.scripts/${relativeFileDirname}/${fileDirnameBasename}.log",
+        "command": "bash",
+        "args": [
+            "-c",
+            "CC=clang ibazel -run_command_after_success=\"code $(bazel info bazel-bin)/${relativeFileDirname}/${fileBasenameNoExtension}.png\" build ${relativeFileDirname}:generate_plot"
+        ],
         "problemMatcher": [],
         "dependsOn": [
           "Bazel: Generate compile_commands.json"
         ],
+      },
+      {
+        "label": "Open Generated Plot (use this with plot.py)",
+        "type": "shell",
+        "command": "code $(bazel info bazel-bin)/${relativeFileDirname}/${fileBasenameNoExtension}.png",
+        "problemMatcher": []
       }
     ]
 }

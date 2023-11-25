@@ -22,4 +22,4 @@ RUN if [ "${BAZEL_COMPDB_VERSION}" != "none" ]; then \
     && rm -f /tmp/install-bazel-compdb.sh
 
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends clang-tidy-11 clang-format-11 gnuplot black python3-numpy python3-matplotlib python3-tk
+    && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends clang-tidy-11 clang-format-11 python3-pip python3-tk black isort

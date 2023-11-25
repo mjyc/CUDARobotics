@@ -1,14 +1,19 @@
 {
   // https://github.com/bazelbuild/vscode-bazel/issues/223
   "bazel.queriesShareServer": true,
-
   // https://github.com/microsoft/vscode-cpptools/issues/722
   "C_Cpp.autoAddFileAssociations": false, 
-
   "C_Cpp.codeAnalysis.clangTidy.enabled": true,
   "C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
   "C_Cpp.codeAnalysis.clangTidy.args": [
     "-checks=clang-diagnostic-*,clang-analyzer-*,cppcoreguidelines-*,modernize-*,-modernize-use-trailing-return-type,-cppcoreguidelines-avoid-magic-numbers"
   ],
-  "C_Cpp.codeAnalysis.clangTidy.path": "/usr/bin/clang-tidy-11"
+  "C_Cpp.codeAnalysis.clangTidy.path": "/usr/bin/clang-tidy-11",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+  },
+  "black-formatter.path": [
+    "/usr/bin/black"
+  ],
 }
