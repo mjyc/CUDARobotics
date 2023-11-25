@@ -3,8 +3,25 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 load("@rules_python//python:defs.bzl", "py_binary")
 
 cc_library(
+    name = "utils",
+    hdrs = ["utils.h"],
+)
+
+cc_library(
     name = "mjyc",
     hdrs = ["mjyc.h"],
+    deps = [":utils"],
+)
+
+cc_binary(
+    name = "benchmark",
+    srcs = ["benchmark.cpp"],
+    deps = [
+        ":mjyc",
+        ":utils",
+        "@nlohmann_json//:json",
+        "@google_benchmark//:benchmark_main",
+    ],
 )
 
 cc_binary(

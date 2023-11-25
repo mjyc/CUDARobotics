@@ -5,7 +5,7 @@ FAILED_TESTS=()
 # Test CXX=clang++ bazel run --compilation_mode=opt //${ALGORITHM}:benchmark
 ALGORITHMS=(
     "Localization/extended_kalman_filter"
-    "Planning/astar"
+    "PathPlanning/astar"
 )
 for ALGORITHM in "${ALGORITHMS[@]}"; do
     # Run benchmark command

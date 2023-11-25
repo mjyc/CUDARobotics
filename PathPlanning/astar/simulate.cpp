@@ -6,39 +6,11 @@
 #include <utility>
 #include <vector>
 
-#include "Planning/astar/mjyc.h"
+#include "PathPlanning/astar/mjyc.h"
+#include "PathPlanning/astar/utils.h"
 
 using json = nlohmann::json;
 using Cell = std::pair<short int, short int>;  // x, y
-
-/**
- * @brief Creates obstacles for the simulation.
- *
- * @return std::vector<Cell> - A vector of cells representing the obstacles.
- */
-std::vector<Cell> CreateObstacles()
-{
-  std::vector<Cell> obstacles;
-  for (short int i = -10; i < 60; ++i)
-  {
-    obstacles.emplace_back(i, -10);
-    obstacles.emplace_back(60, i);
-  }
-  for (short int i = -10; i <= 60; ++i)
-  {
-    obstacles.emplace_back(i, 60);
-    obstacles.emplace_back(-10, i);
-  }
-  for (short int i = -10; i < 40; ++i)
-  {
-    obstacles.emplace_back(20, i);
-  }
-  for (short int i = 0; i < 40; ++i)
-  {
-    obstacles.emplace_back(40, 60 - i);
-  }
-  return obstacles;
-}
 
 /**
  * @brief Converts the given data into a JSON object.
@@ -84,7 +56,8 @@ int main(int argc, char* argv[])
     std::make_shared<std::vector<Cell>>();
 
   // Plan with A*
-  const std::vector<Cell> path = AStar(obstacles, start, goal, h_fnc, visited);
+  const std::vector<Cell> path = AStar(obstacles, start, goal, h_fnc,
+                                       AStarOptions{.debug_visited = visited});
 
   // Print or save everything
   std::ofstream file;

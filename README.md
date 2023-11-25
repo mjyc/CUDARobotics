@@ -36,7 +36,7 @@ An example run:
 -----------------------------------------------------------------------------------------------------
 Benchmark                                                           Time             CPU   Iterations
 -----------------------------------------------------------------------------------------------------
-Localization/extended_kalman_filter:extended_kalman_filter        615 ns          616 ns      1125872
+Localization/extended_kalman_filter:mjyc                          615 ns          616 ns      1125872
 Localization/extended_kalman_filter:onlytailei                    618 ns          619 ns      1136444
 ```
 Note: this result is from running the command on my local machine, not on a codepsace instance.
@@ -46,7 +46,7 @@ To reproduce, do
 1. Open `Localization/extended_kalman_filter/benchmark.cpp`
 1. Open Command Palette via Ctrl + Shift + P (Linux)
 1. Enter "Tasks: Run Task"
-1. Enter "Bazel: Run (opt)"
+1. Enter "bazel: Run Current File Target (opt)"
 
 or run
 
@@ -67,20 +67,8 @@ To create [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style
 or run
 
 ```
-CXX=clang++ bazel build //Localization/extended_kalman_filter:generate_plot
-```
-
-To view the freshly generated plot, do
-
-1. Open `Localization/extended_kalman_filter/plot.py` (or any file in that folder)
-1. Open Command Palette via Ctrl + Shift + P (Linux)
-1. Enter "Tasks: Run Task"
-1. Enter "iBazel: Open Plot"
-
-or run
-
-```
-code $(bazel info bazel-bin)/Localization/extended_kalman_filter/plot.png
+CXX=clang++ bazel build //Localization/extended_kalman_filter:generate_plot  # generates a plot
+code $(bazel info bazel-bin)/Localization/extended_kalman_filter/plot.png  # opens the plot
 ```
 Note: the `plot.png` tab closes itself on regenerating the plot.
 
@@ -110,3 +98,17 @@ or run
 ```
 CXX=clang++ ibazel build ${relativeFileDirname}:generate_plot
 ```
+
+To view the plot, do
+
+1. Open `Localization/extended_kalman_filter/plot.py` (or any file in that folder)
+1. Open Command Palette via Ctrl + Shift + P (Linux)
+1. Enter "Tasks: Run Task"
+1. Enter "code: Open Plot"
+
+or run
+
+```
+code $(bazel info bazel-bin)/Localization/extended_kalman_filter/plot.png
+```
+Note: the `plot.png` tab closes itself on regenerating the plot.

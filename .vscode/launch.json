@@ -2,8 +2,8 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Debug",
-      "preLaunchTask": "Bazel: Build (debug)",	
+      "name": "Launch Debug: Current File Target",
+      "preLaunchTask": "bazel: Build Current File's Target (debug)",
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/bazel-bin/${relativeFileDirname}/${fileBasenameNoExtension}",

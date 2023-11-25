@@ -1,82 +1,82 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "bazel-compdb: Generate compile_commands.json",
-        "type": "shell",
-        "command": "bazel-compdb",
-        "problemMatcher": [],
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "bazel-compdb: Generate compile_commands.json",
+      "type": "shell",
+      "command": "bazel-compdb",
+      "problemMatcher": [],
+    },
+    {
+      "label": "bazel: Build Current File Target",
+      "type": "shell",
+      "command": "CXX=clang++ bazel build ${relativeFileDirname}:${fileBasenameNoExtension}",
+      "dependsOn": [
+        "bazel-compb: Generate compile_commands.json"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true,
       },
-      {
-        "label": "Bazel: Build",
-        "type": "shell",
-        "command": "CXX=clang++ bazel build ${relativeFileDirname}:${fileBasenameNoExtension}",
-        "dependsOn": [
-          "Bazel: Generate compile_commands.json"
-        ],
-        "group": {
-          "kind": "build",
-          "isDefault": true,
-        },
-      },
-      {
-        "label": "Bazel: Build (debug)",
-        "type": "shell",
-        "command": "CXX=clang++ bazel build -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
-        "dependsOn": [
-          "Bazel: Generate compile_commands.json"
-        ],
-      },
-      {
-        "label": "Bazel: Run",
-        "type": "shell",
-        "command": "CXX=clang++ bazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
-        "problemMatcher": [],
-      },
-      {
-        "label": "Bazel: Run (debug)",
-        "type": "shell",
-        "command": "CXX=clang++ bazel run -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
-        "problemMatcher": [],
-      },
-      {
-        "label": "Bazel: Run (opt)",
-        "type": "shell",
-        "command": "CXX=clang++ bazel run -c opt ${relativeFileDirname}:${fileBasenameNoExtension}",
-        "problemMatcher": [],
-      },
-      {
-        "label": "Bazel: Generate and Open Plot",
-        "type": "shell",
-        "command": "CXX=clang++ bazel build ${relativeFileDirname}:generate_plot && code $(bazel info bazel-bin)/${relativeFileDirname}/plot.png",
-        "problemMatcher": [],
-        "dependsOn": [
-          "Bazel: Generate compile_commands.json"
-        ],
-      },
-      {
-        "label": "iBazel: Run",
-        "type": "shell",
-        "command": "CXX=clang++ ibazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
-        "problemMatcher": [],
-        "dependsOn": [
-          "Bazel: Generate compile_commands.json"
-        ],
-      },
-      {
-        "label": "iBazel: Generate Plot",
-        "type": "shell",
-        "command": "CXX=clang++ ibazel build ${relativeFileDirname}:generate_plot",
-        "problemMatcher": [],
-        "dependsOn": [
-          "Bazel: Generate compile_commands.json"
-        ],
-      },
-      {
-        "label": "shell: Open Plot",
-        "type": "shell",
-        "command": "code $(bazel info bazel-bin)/${relativeFileDirname}/plot.png",
-        "problemMatcher": []
-      }
-    ]
+    },
+    {
+      "label": "bazel: Build Current File Target (debug)",
+      "type": "shell",
+      "command": "CXX=clang++ bazel build -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
+      "dependsOn": [
+        "bazel-compb: Generate compile_commands.json"
+      ],
+    },
+    {
+      "label": "bazel: Run",
+      "type": "shell",
+      "command": "CXX=clang++ bazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
+      "problemMatcher": [],
+    },
+    {
+      "label": "bazel: Run Current File Target (debug)",
+      "type": "shell",
+      "command": "CXX=clang++ bazel run -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
+      "problemMatcher": [],
+    },
+    {
+      "label": "bazel: Run Current File Target (opt)",
+      "type": "shell",
+      "command": "CXX=clang++ bazel run -c opt ${relativeFileDirname}:${fileBasenameNoExtension}",
+      "problemMatcher": [],
+    },
+    {
+      "label": "bazel: Generate and Open Plot",
+      "type": "shell",
+      "command": "CXX=clang++ bazel build ${relativeFileDirname}:generate_plot && code $(bazel info bazel-bin)/${relativeFileDirname}/plot.png",
+      "problemMatcher": [],
+      "dependsOn": [
+        "bazel-compb: Generate compile_commands.json"
+      ],
+    },
+    {
+      "label": "ibazel: Run Current File Target",
+      "type": "shell",
+      "command": "CXX=clang++ ibazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
+      "problemMatcher": [],
+      "dependsOn": [
+        "bazel-compb: Generate compile_commands.json"
+      ],
+    },
+    {
+      "label": "ibazel: Generate Plot",
+      "type": "shell",
+      "command": "CXX=clang++ ibazel build ${relativeFileDirname}:generate_plot",
+      "problemMatcher": [],
+      "dependsOn": [
+        "bazel-compb: Generate compile_commands.json"
+      ],
+    },
+    {
+      "label": "code: Open Plot",
+      "type": "shell",
+      "command": "code $(bazel info bazel-bin)/${relativeFileDirname}/plot.png",
+      "problemMatcher": []
+    }
+  ]
 }

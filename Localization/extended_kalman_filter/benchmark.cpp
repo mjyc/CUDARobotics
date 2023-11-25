@@ -29,7 +29,7 @@ static void extended_kalman_filter(benchmark::State& state)
   }
 }
 BENCHMARK(extended_kalman_filter)
-  ->Name("Localization/extended_kalman_filter:extended_kalman_filter");
+  ->Name("Localization/extended_kalman_filter:mjyc");
 
 static void ekf_onlytailei(benchmark::State& state)
 {

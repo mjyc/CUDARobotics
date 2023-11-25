@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
+#include <valarray>
 
 using Cell = std::pair<short int, short int>;
 
@@ -32,21 +33,27 @@ float CalcDist(const Cell& a, const Cell& b)
   return std::sqrt(dx * dx + dy * dy);
 }
 
+struct AStarOptions
+{
+  std::size_t max_nodes_to_explore = std::numeric_limits<std::size_t>::max();
+
+  std::shared_ptr<std::vector<Cell>> debug_visited{nullptr};
+};
+
 /**
  * A* algorithm for path planning.
  *
  * @param obstacles A vector of cells representing the obstacles to avoid.
  * @param start The starting cell.
  * @param goal The goal cell.
- * @param h_fnc The heuristic function to estimate the cost of reaching the goal.
- * @param debug_visited (optional) A shared pointer to a vector of cells to store
- *                      the visited cells for debugging purposes.
- * @return A vector of cells representing the shortest path from start to goal.
+ * @param h_fnc The heuristic function to estimate the distance between cells.
+ * @param options The optional A* algorithm options.
+ * @return The list of cells representing the shortest path from start to goal.
  */
 std::vector<Cell> AStar(
   const std::vector<Cell>& obstacles, const Cell& start, const Cell& goal,
   const std::function<float(const Cell&, const Cell&)>& h_fnc,
-  std::shared_ptr<std::vector<Cell>> debug_visited = nullptr)
+  const AStarOptions& options = AStarOptions())
 {
   using QueueElement = std::pair<float, Cell>;  // f_score, position
 
@@ -63,8 +70,11 @@ std::vector<Cell> AStar(
   f_scores[start] = g_scores[start];  // h_score is 0
   queue.push_back({f_scores[start], start});
 
+  std::size_t nodes_explored = 0;
   while (!open_set.empty())
   {
+    if (nodes_explored >= options.max_nodes_to_explore) break;
+
     // Pop the cell with the lowest f_score from the priority queue
     auto& [unused, current] = queue.front();
     queue.pop_front();
@@ -110,8 +120,11 @@ std::vector<Cell> AStar(
                          {
                            return a.first > b.first;
                          });
-          if (debug_visited)
-            debug_visited->push_back({neighbor.first, neighbor.second});
+
+          ++nodes_explored;
+
+          if (options.debug_visited)
+            options.debug_visited->push_back({neighbor.first, neighbor.second});
         }
       }
     }
