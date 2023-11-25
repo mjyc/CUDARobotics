@@ -2,30 +2,31 @@
 
 FAILED_TESTS=()
 
-# Test CC=clang bazel run --compilation_mode=opt //${ALGORITHM}:benchmark
+# Test CXX=clang++ bazel run --compilation_mode=opt //${ALGORITHM}:benchmark
 ALGORITHMS=(
     "Localization/extended_kalman_filter"
+    "Planning/astar"
 )
 for ALGORITHM in "${ALGORITHMS[@]}"; do
     # Run benchmark command
-    CC=clang bazel run --compilation_mode=opt //${ALGORITHM}:benchmark
+    CXX=clang++ bazel run --compilation_mode=opt //${ALGORITHM}:benchmark
 
     # Check the exit code
     if [[ $? -eq 0 ]]; then
-        echo "✅ PASS: \"CC=clang bazel run --compilation_mode=opt //${ALGORITHM}:benchmark\""
+        echo "✅ PASS: \"CXX=clang++ bazel run --compilation_mode=opt //${ALGORITHM}:benchmark\""
     else
-        echo "❌ FAIL: \"CC=clang bazel run --compilation_mode=opt //${ALGORITHM}:benchmark\""
+        echo "❌ FAIL: \"CXX=clang++ bazel run --compilation_mode=opt //${ALGORITHM}:benchmark\""
         FAILED_TESTS+=("${ALGORITHM}")
     fi
 
     # Run visualization command
-    CC=clang bazel build //${ALGORITHM}:generate_plot
+    CXX=clang++ bazel build //${ALGORITHM}:generate_plot
 
     # Check the exit code
     if [[ $? -eq 0 ]]; then
-        echo "✅ PASS: \"CC=clang bazel build //${ALGORITHM}:generate_plot //${ALGORITHM}:generate_plot\""
+        echo "✅ PASS: \"CXX=clang++ bazel build //${ALGORITHM}:generate_plot //${ALGORITHM}:generate_plot\""
     else
-        echo "❌ FAIL: \"CC=clang bazel build //${ALGORITHM}:generate_plot //${ALGORITHM}:generate_plot\""
+        echo "❌ FAIL: \"CXX=clang++ bazel build //${ALGORITHM}:generate_plot //${ALGORITHM}:generate_plot\""
         FAILED_TESTS+=("${ALGORITHM}")
     fi
 done

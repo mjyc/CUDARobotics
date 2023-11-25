@@ -48,7 +48,7 @@ To reproduce, do
 or run
 
 ```
-CC=clang bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
+CXX=clang++ bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
 ```
 
 ## Visualization

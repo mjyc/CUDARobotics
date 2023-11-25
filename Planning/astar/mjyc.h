@@ -17,6 +17,13 @@ struct std::hash<Cell>
   }
 };
 
+/**
+ * Calculates the distance between two cells.
+ *
+ * @param a The first cell.
+ * @param b The second cell.
+ * @return The distance between the two cells.
+ */
 float CalcDist(const Cell& a, const Cell& b)
 {
   auto dx = static_cast<float>(a.first - b.first);
@@ -24,10 +31,20 @@ float CalcDist(const Cell& a, const Cell& b)
   return std::sqrt(dx * dx + dy * dy);
 }
 
+/**
+ * A* algorithm for path planning.
+ *
+ * @param obstacles The list of obstacle cells.
+ * @param start The start cell.
+ * @param goal The goal cell.
+ * @param h_fnc The heuristic function to estimate the cost from each cell to the goal.
+ * @param debug_visited Optional parameter to store the visited cells for debugging purposes.
+ * @return The shortest path from the start cell to the goal cell.
+ */
 std::vector<Cell> AStar(
   const std::vector<Cell>& obstacles, const Cell& start, const Cell& goal,
   const std::function<float(const Cell&, const Cell&)>& h_fnc,
-  std::vector<Cell>& debug_visited)
+  std::optional<std::vector<Cell>> debug_visited = std::nullopt)
 {
   using QueueElement = std::pair<float, Cell>;  // f_score, position
 
@@ -36,8 +53,8 @@ std::vector<Cell> AStar(
   std::unordered_set<Cell> closed_set;
   std::unordered_map<Cell, float> f_scores;
   std::unordered_map<Cell, float> g_scores;
-  std::unordered_map<Cell, Cell> prevs;
-  std::deque<QueueElement> queue;
+  std::unordered_map<Cell, Cell> prevs;  // for reconstructing the path
+  std::deque<QueueElement> queue;  // for selecting the next cell to visit
 
   open_set.insert(start);
   g_scores[start] = CalcDist(start, goal);
@@ -46,6 +63,7 @@ std::vector<Cell> AStar(
 
   while (!open_set.empty())
   {
+    // Pop the cell with the lowest f_score from the priority queue
     auto& [unused, current] = queue.front();
     queue.pop_front();
 
@@ -60,14 +78,16 @@ std::vector<Cell> AStar(
         if (x_diff == 0 && y_diff == 0) continue;
 
         Cell neighbor{current.first + x_diff, current.second + y_diff};
-        if (obstacle_set.contains(neighbor) || closed_set.contains(neighbor))
+        if (obstacle_set.find(neighbor) != obstacle_set.end() ||
+            closed_set.find(neighbor) != closed_set.end())
           continue;
 
         float neighbor_g_score =
           g_scores[current] + CalcDist(current, neighbor);
         float neighbor_h_score = h_fnc(neighbor, goal);
-        if (open_set.contains(neighbor))
+        if (open_set.find(neighbor) != open_set.end())
         {
+          // Update scores and path if a better path is found
           if (neighbor_g_score < g_scores[neighbor])
           {
             g_scores[neighbor] = neighbor_g_score;
@@ -77,6 +97,7 @@ std::vector<Cell> AStar(
         }
         else
         {
+          // Add the new neighbor to open set and priority queue
           open_set.insert(neighbor);
           g_scores[neighbor] = neighbor_g_score;
           f_scores[neighbor] = g_scores[neighbor] + neighbor_h_score;
@@ -87,15 +108,17 @@ std::vector<Cell> AStar(
                          {
                            return a.first > b.first;
                          });
-          debug_visited.push_back({neighbor.first, neighbor.second});
+          if (debug_visited)
+            debug_visited->push_back({neighbor.first, neighbor.second});
         }
       }
     }
   }
 
+  // Reconstruct the path from goal to start
   std::vector<Cell> path;
   Cell cell_in_path{goal};
-  while (prevs.contains(cell_in_path))
+  while (prevs.find(cell_in_path) != prevs.end())
   {
     path.push_back(cell_in_path);
     cell_in_path = prevs[cell_in_path];

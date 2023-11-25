@@ -10,6 +10,11 @@
 using json = nlohmann::json;
 using Cell = std::pair<short int, short int>;  // x, y
 
+/**
+ * @brief Creates obstacles for the simulation.
+ * 
+ * @return std::vector<Cell> - A vector of cells representing the obstacles.
+ */
 std::vector<Cell> CreateObstacles()
 {
   std::vector<Cell> obstacles;
@@ -34,6 +39,16 @@ std::vector<Cell> CreateObstacles()
   return obstacles;
 }
 
+/**
+ * @brief Converts the given data into a JSON object.
+ * 
+ * @param obstacles A vector of cells representing obstacles.
+ * @param start The starting cell.
+ * @param goal The goal cell.
+ * @param path A vector of cells representing the path.
+ * @param visited A vector of cells representing the visited cells.
+ * @return A JSON object containing the converted data.
+ */
 json ToJSON(const std::vector<Cell>& obstacles, const Cell& start,
             const Cell& goal, const std::vector<Cell>& path,
             const std::vector<Cell>& visited)

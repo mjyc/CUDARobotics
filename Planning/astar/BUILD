@@ -1,9 +1,10 @@
+load("@plot_deps//:requirements.bzl", "requirement")
 load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@rules_python//python:defs.bzl", "py_binary")
 
 cc_library(
     name = "mjyc",
     hdrs = ["mjyc.h"],
-    visibility = ["//visibility:public"],
 )
 
 cc_binary(
@@ -13,4 +14,20 @@ cc_binary(
         ":mjyc",
         "@nlohmann_json//:json",
     ],
+)
+
+py_binary(
+  name = "plot",
+  srcs = ["plot.py"],
+  deps =[
+    requirement("numpy"),
+    requirement("matplotlib"),
+  ]
+)
+
+genrule(
+    name = "generate_plot",
+    outs = ["simulate_output.txt", "plot.png"],
+    cmd = "./$(location :simulate) $(location simulate_output.txt) && ./$(location :plot) $(location simulate_output.txt) $(location plot.png)",
+    tools = [":simulate", ":plot"],
 )

@@ -10,7 +10,7 @@
       {
         "label": "Bazel: Build",
         "type": "shell",
-        "command": "CC=clang bazel build ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "command": "CXX=clang++ bazel build ${relativeFileDirname}:${fileBasenameNoExtension}",
         "dependsOn": [
           "Bazel: Generate compile_commands.json"
         ],
@@ -22,7 +22,7 @@
       {
         "label": "Bazel: Build (debug)",
         "type": "shell",
-        "command": "CC=clang bazel build -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "command": "CXX=clang++ bazel build -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
         "dependsOn": [
           "Bazel: Generate compile_commands.json"
         ],
@@ -30,25 +30,25 @@
       {
         "label": "Bazel: Run",
         "type": "shell",
-        "command": "CC=clang bazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "command": "CXX=clang++ bazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
         "problemMatcher": [],
       },
       {
         "label": "Bazel: Run (debug)",
         "type": "shell",
-        "command": "CC=clang bazel run -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "command": "CXX=clang++ bazel run -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
         "problemMatcher": [],
       },
       {
         "label": "Bazel: Run (opt)",
         "type": "shell",
-        "command": "CC=clang bazel run -c opt ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "command": "CXX=clang++ bazel run -c opt ${relativeFileDirname}:${fileBasenameNoExtension}",
         "problemMatcher": [],
       },
       {
         "label": "iBazel: Run",
         "type": "shell",
-        "command": "CC=clang ibazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
+        "command": "CXX=clang++ ibazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
         "problemMatcher": [],
         "dependsOn": [
           "Bazel: Generate compile_commands.json"
@@ -60,7 +60,7 @@
         "command": "bash",
         "args": [
             "-c",
-            "CC=clang ibazel -run_command_after_success=\"code $(bazel info bazel-bin)/${relativeFileDirname}/${fileBasenameNoExtension}.png\" build ${relativeFileDirname}:generate_plot"
+            "CXX=clang++ ibazel -run_command_after_success=\"code $(bazel info bazel-bin)/${relativeFileDirname}/${fileBasenameNoExtension}.png\" build ${relativeFileDirname}:generate_plot"
         ],
         "problemMatcher": [],
         "dependsOn": [
