@@ -12,6 +12,9 @@
     "-checks=clang-diagnostic-*,clang-analyzer-*,cppcoreguidelines-*,modernize-*,-modernize-use-trailing-return-type,-cppcoreguidelines-avoid-magic-numbers"
   ],
   "C_Cpp.codeAnalysis.clangTidy.path": "/usr/bin/clang-tidy-11",
+  "[starlark]": {
+    "editor.formatOnSave": true,
+  },
   "[cpp]": {
     "editor.formatOnSave": true,
   },

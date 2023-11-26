@@ -6,6 +6,7 @@ FAILED_TESTS=()
 ALGORITHMS=(
     "Localization/extended_kalman_filter"
     "PathPlanning/astar"
+    "ArmNavigation/ik_trajectory_control"
 )
 for ALGORITHM in "${ALGORITHMS[@]}"; do
     # Run benchmark command

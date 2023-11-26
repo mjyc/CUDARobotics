@@ -3,7 +3,7 @@
 #include "PathPlanning/astar/mjyc.h"
 #include "PathPlanning/astar/utils.h"
 
-static void astar(benchmark::State& state)
+static void astar_mjyc(benchmark::State& state)
 {
   // A* parameters
   const std::vector<Cell> obstacles{CreateObstacles()};
@@ -31,4 +31,4 @@ static void astar(benchmark::State& state)
     benchmark::DoNotOptimize(path);
   }
 }
-BENCHMARK(astar)->Name("Localization/astar:mjyc");
+BENCHMARK(astar_mjyc)->Name("Localization/astar:mjyc");

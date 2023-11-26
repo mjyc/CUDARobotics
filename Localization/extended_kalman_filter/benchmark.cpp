@@ -9,7 +9,7 @@ const float kInitTime = 0.0;
 const float kDeltaTime = 0.1;
 const Eigen::Vector4f kInitState{0.0, 0.0, 0.0, 0.0};  // [x y yaw v]'
 
-static void extended_kalman_filter(benchmark::State& state)
+static void ekf_mjyc(benchmark::State& state)
 {
   utils::EKFParameters params{};
 
@@ -28,7 +28,7 @@ static void extended_kalman_filter(benchmark::State& state)
     mjyc::EKFEstimation(x, P, z, u, params);
   }
 }
-BENCHMARK(extended_kalman_filter)
+BENCHMARK(ekf_mjyc)
   ->Name("Localization/extended_kalman_filter:mjyc");
 
 static void ekf_onlytailei(benchmark::State& state)

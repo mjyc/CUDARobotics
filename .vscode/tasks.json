@@ -12,7 +12,7 @@
       "type": "shell",
       "command": "CXX=clang++ bazel build ${relativeFileDirname}:${fileBasenameNoExtension}",
       "dependsOn": [
-        "bazel-compb: Generate compile_commands.json"
+        "bazel-compdb: Generate compile_commands.json"
       ],
       "group": {
         "kind": "build",
@@ -24,7 +24,7 @@
       "type": "shell",
       "command": "CXX=clang++ bazel build -c dbg ${relativeFileDirname}:${fileBasenameNoExtension}",
       "dependsOn": [
-        "bazel-compb: Generate compile_commands.json"
+        "bazel-compdb: Generate compile_commands.json"
       ],
     },
     {
@@ -51,16 +51,37 @@
       "command": "CXX=clang++ bazel build ${relativeFileDirname}:generate_plot && code $(bazel info bazel-bin)/${relativeFileDirname}/plot.png",
       "problemMatcher": [],
       "dependsOn": [
-        "bazel-compb: Generate compile_commands.json"
+        "bazel-compdb: Generate compile_commands.json"
       ],
     },
     {
       "label": "ibazel: Run Current File Target",
       "type": "shell",
       "command": "CXX=clang++ ibazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
-      "problemMatcher": [],
+      "problemMatcher": {
+        "owner": "cpp",
+        "fileLocation": ["absolute"],
+        "pattern": [
+          {
+            "regexp": "^(.*):(\\d+):(\\d+): (fatal error|error): (.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          },
+          {
+            "regexp": "^(.*):(\\d+):(\\d+): (note): (.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
+        ]
+      },
       "dependsOn": [
-        "bazel-compb: Generate compile_commands.json"
+        "bazel-compdb: Generate compile_commands.json"
       ],
     },
     {
@@ -69,7 +90,7 @@
       "command": "CXX=clang++ ibazel build ${relativeFileDirname}:generate_plot",
       "problemMatcher": [],
       "dependsOn": [
-        "bazel-compb: Generate compile_commands.json"
+        "bazel-compdb: Generate compile_commands.json"
       ],
     },
     {
