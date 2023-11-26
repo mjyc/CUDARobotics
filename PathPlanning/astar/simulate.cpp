@@ -10,7 +10,6 @@
 #include "PathPlanning/astar/utils.h"
 
 using json = nlohmann::json;
-using Cell = std::pair<short int, short int>;  // x, y
 
 /**
  * @brief Converts the given data into a JSON object.

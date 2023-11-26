@@ -1,5 +1,6 @@
 #include <benchmark/benchmark.h>
 
+#include "PathPlanning/astar/types.h"
 #include "PathPlanning/astar/mjyc.h"
 #include "PathPlanning/astar/utils.h"
 

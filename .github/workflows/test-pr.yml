@@ -18,8 +18,8 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update
-          sudo DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends gnuplot python3-numpy python3-matplotlib python3-tk
+          sudo DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends  python3-pip python3-tk
       - name: Run tests
         id: run_tests
         shell: bash
-        run: .scripts/readme_cli_test.sh
+        run: ./test/readme_cli_test.sh

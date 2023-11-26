@@ -6,7 +6,7 @@
 #include <utility>
 #include <valarray>
 
-using Cell = std::pair<short int, short int>;
+#include "PathPlanning/astar/types.h"
 
 template <>
 struct std::hash<Cell>

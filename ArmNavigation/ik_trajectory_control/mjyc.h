@@ -1,5 +1,3 @@
-#pragma once
-
 #include <Eigen/Eigen>
 
 #include "ArmNavigation/ik_trajectory_control/utils.h"

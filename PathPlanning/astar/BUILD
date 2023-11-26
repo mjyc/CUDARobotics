@@ -3,14 +3,23 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 load("@rules_python//python:defs.bzl", "py_binary")
 
 cc_library(
+    name = "types",
+    hdrs = ["types.h"],
+)
+
+cc_library(
     name = "utils",
     hdrs = ["utils.h"],
+    deps = [":types"],
 )
 
 cc_library(
     name = "mjyc",
     hdrs = ["mjyc.h"],
-    deps = [":utils"],
+    deps = [
+        ":types",
+        ":utils",
+    ],
 )
 
 cc_binary(
@@ -19,8 +28,8 @@ cc_binary(
     deps = [
         ":mjyc",
         ":utils",
-        "@nlohmann_json//:json",
         "@google_benchmark//:benchmark_main",
+        "@nlohmann_json//:json",
     ],
 )
 
@@ -34,17 +43,23 @@ cc_binary(
 )
 
 py_binary(
-  name = "plot",
-  srcs = ["plot.py"],
-  deps =[
-    requirement("numpy"),
-    requirement("matplotlib"),
-  ]
+    name = "plot",
+    srcs = ["plot.py"],
+    deps = [
+        requirement("numpy"),
+        requirement("matplotlib"),
+    ],
 )
 
 genrule(
     name = "generate_plot",
-    outs = ["simulate_output.txt", "plot.png"],
+    outs = [
+        "simulate_output.txt",
+        "plot.png",
+    ],
     cmd = "./$(location :simulate) $(location simulate_output.txt) && ./$(location :plot) $(location simulate_output.txt) $(location plot.png)",
-    tools = [":simulate", ":plot"],
+    tools = [
+        ":plot",
+        ":simulate",
+    ],
 )
