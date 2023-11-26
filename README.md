@@ -73,7 +73,7 @@ code $(bazel info bazel-bin)/Localization/extended_kalman_filter/plot.png  # ope
 Note: the `plot.png` tab closes itself on regenerating the plot.
 
 
-## DX Features
+## More DevTools
 
 ### Debugging in VS Code
 
