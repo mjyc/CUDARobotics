@@ -1,5 +1,5 @@
-from sys import argv
 from json import load
+from sys import argv
 
 import matplotlib.pyplot as plt
 
@@ -33,7 +33,7 @@ def save_astar_solution_as_png(
     gx, gy = goal
     px, py = [list(lst) for lst in zip(*path)] if path else [[], []]
     vx, vy = [list(lst) for lst in zip(*visited)] if visited else [[], []]
-    
+
     plt.plot(ox, oy, ".k")
     plt.plot(vx, vy, "xc")
     plt.plot(sx, sy, "og")
@@ -42,7 +42,7 @@ def save_astar_solution_as_png(
 
     plt.grid(True)
     plt.axis("equal")
-    
+
     plt.savefig(filename)
 
 

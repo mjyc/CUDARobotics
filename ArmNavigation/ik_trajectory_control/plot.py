@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-from sys import argv
 from json import load
+from math import cos, sin
+from sys import argv
 
 import matplotlib.pyplot as plt
-
-from math import cos, sin
 
 
 def save_ik_path_as_png(

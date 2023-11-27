@@ -27,6 +27,8 @@ To open in Codespace, do
 
 To open in VS Code Dev Containers, checkout related documentation, e.g., [this](https://github.com/microsoft/vscode-remote-try-cpp/tree/main#vs-code-dev-containers).
 
+To build src code without Dev Container, start with `.devcontainer/Dockerfile`.
+
 
 ## Benchmark
 
