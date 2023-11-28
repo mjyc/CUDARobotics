@@ -12,7 +12,7 @@ COPY ./install-buildifier.sh /tmp/
 RUN if [ "${BUILDIFIER_VERSION}" != "none" ]; then \
         chmod +x /tmp/install-buildifier.sh && /tmp/install-buildifier.sh ${BUILDIFIER_VERSION}; \
     fi \
-    && rm -f /tmp/install-buildifier.sh
+    && rm -f /tmp/install-buildifier.sh¥
 
 ARG BAZEL_COMPDB_VERSION="none"
 COPY ./install-bazel-compdb.sh /tmp/
@@ -22,7 +22,4 @@ RUN if [ "${BAZEL_COMPDB_VERSION}" != "none" ]; then \
     && rm -f /tmp/install-bazel-compdb.sh
 
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
-    clang-tidy-11 clang-format-11  # for cpp formatting \
-    python3-pip python3-tk  # for data visualization \
-    black isort  # for python formatting
+    && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends clang-tidy-11 clang-format-11 python3-pip python3-tk black isort

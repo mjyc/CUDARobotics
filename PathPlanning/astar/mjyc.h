@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <deque>
+#include <functional>
 #include <memory>
 #include <unordered_map>
 #include <unordered_set>
