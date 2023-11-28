@@ -53,7 +53,7 @@ To reproduce, do
 or run
 
 ```
-CXX=clang++ bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
+CC=clang bazel run --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
 ```
 
 
@@ -69,7 +69,7 @@ To create [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style
 or run
 
 ```
-CXX=clang++ bazel build //Localization/extended_kalman_filter:generate_plot  # generates a plot
+CC=clang bazel build //Localization/extended_kalman_filter:generate_plot  # generates a plot
 code $(bazel info bazel-bin)/Localization/extended_kalman_filter/plot.png  # opens the plot
 ```
 Note: the `plot.png` tab closes itself on regenerating the plot.
@@ -98,7 +98,7 @@ To regenerate the plot whenever a dependent file content changes, do
 or run
 
 ```
-CXX=clang++ ibazel build ${relativeFileDirname}:generate_plot
+CC=clang ibazel build ${relativeFileDirname}:generate_plot
 ```
 
 To view the plot, do
