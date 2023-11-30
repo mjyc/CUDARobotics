@@ -79,6 +79,51 @@ Try
 1. Enter "Debug: Start Debugging"
 
 
+## Watcher Tasks
+
+[Compiler Explorer](https://godbolt.org/) here we come!
+
+### (Re-)Build on Change 
+
+To (re-)build on change/save, do
+
+1. Open `Localization/extended_kalman_filter/simulate.cpp` (or any other src file)
+1. Open Command Palette via Ctrl + Shift + P (Linux)
+1. Enter "Tasks: Run Task"
+1. Enter "iBazel: ibazel: Run Current File Target"
+
+### (Re-)Generate Plot on Change 
+
+To (re-)generate a plot on change/save, do
+
+1. Open `Localization/extended_kalman_filter/simulate.py` (or any file in that f
+lder)
+1. Open Command Palette via Ctrl + Shift + P (Linux)
+1. Enter "Tasks: Run Task"
+1. Enter "iBazel: Generate Plot"
+
+or run
+
+```
+CC=clang ibazel build ${relativeFileDirname}:generate_plot
+```
+
+To view the (re-)generated plot, do
+
+1. Open `Localization/extended_kalman_filter/plot.py` (or any file in that folde
+)
+1. Open Command Palette via Ctrl + Shift + P (Linux)
+1. Enter "Tasks: Run Task"
+1. Enter "code: Open Plot"
+
+or run
+
+```
+code $(bazel info bazel-bin)/Localization/extended_kalman_filter/plot.png
+```
+Note: the `plot.png` tab closes itself on regenerating the plot.
+
+
 ## Related projects
 
 - [AtsushiSakai/PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)
