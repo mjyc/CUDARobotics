@@ -1,3 +1,6 @@
 # For all builds, use c++17
 build --cxxopt="-std=c++17"
 build --host_cxxopt="-std=c++17"
+
+# Enable tracy profiling
+build:tracy --define=use_tracy=enabled

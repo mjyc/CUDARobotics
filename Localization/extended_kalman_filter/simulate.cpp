@@ -1,4 +1,5 @@
 #include <Eigen/Eigen>
+#include <tracy/Tracy.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -75,5 +76,7 @@ int main(int argc, char* argv[])
          << models_2d::to_string(xDR) << std::endl;
 
     if (sim_time > kMaxTime) break;
+
+    FrameMark;  // tracy
   }
 }

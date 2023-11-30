@@ -18,6 +18,7 @@ cc_library(
         ":utils",
         "//Localization:models_2d",
         "@eigen//:eigen3",
+        "@tracy//:tracy",
     ],
 )
 
@@ -46,7 +47,12 @@ cc_binary(
         ":mjyc",
         "//Localization:models_2d",
         "@eigen//:eigen3",
+        "@tracy//:tracy",
     ],
+    copts = select({
+        "//:tracy_enabled": ["-DTRACY_ENABLE"],
+        "//conditions:default": [],
+    }),
 )
 
 py_binary(

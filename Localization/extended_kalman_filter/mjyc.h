@@ -1,4 +1,5 @@
 #include <Eigen/Eigen>
+#include <tracy/Tracy.hpp>
 
 #include <cmath>
 
@@ -43,6 +44,8 @@ void EKFEstimation(Eigen::Vector4f& xEst, Eigen::Matrix4f& PEst,
                    const Eigen::Vector2f& z, const Eigen::Vector2f& u,
                    const utils::EKFParameters& params)
 {
+  ZoneScoped;  // tracy
+
   Eigen::Vector4f xPred{params.MotionModel(xEst, u, params.dt)};
   Eigen::Matrix4f JF{JacobF(xPred, u, params.dt)};
   Eigen::Matrix4f PPred{JF * PEst * JF.transpose() + params.Q};
