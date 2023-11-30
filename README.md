@@ -1,19 +1,13 @@
 # CppRobotics: Benchmark
 
-[CppRobotics](https://github.com/onlytailei/CppRobotics) with benchmark.
+Implements a subset of [CppRobotics](https://github.com/onlytailei/CppRobotics)/[PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics) with:
 
-
-## Features
-
+- [Codespace](https://docs.github.com/en/codespaces) & [Dev Container](https://code.visualstudio.com/docs/devcontainers/containers) support
 - Benchmark via [google/benchmark](https://github.com/google/benchmark)
-- Codespace & Dev Container support
-- Bazel with intelliSense, debugger support, and more
-- [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)-style visualization 
+- Data visualization via [matplotlib](https://matplotlib.org/)
+- [Bazel](https://bazel.build/) integration with [VS Code](https://code.visualstudio.com/) intelliSense, debugger, and more
 
-### Available Algorithms
-
-- Localizatoin
-    - Extended Kalman Filter
+For available algorithms, check out folders starting with a capital letter, e.g., `Localization/extended_kalman_filter`.
 
 
 ## Getting started
@@ -114,3 +108,11 @@ or run
 code $(bazel info bazel-bin)/Localization/extended_kalman_filter/plot.png
 ```
 Note: the `plot.png` tab closes itself on regenerating the plot.
+
+
+## Related projects
+
+- [AtsushiSakai/PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)
+- [onlytailei/CppRobotics](https://github.com/onlytailei/CppRobotics)
+- [giacomo-b/CppRobotics](https://github.com/giacomo-b/CppRobotics)
+- [TheLartians/ModernCppStarter](https://github.com/TheLartians/ModernCppStarter)
