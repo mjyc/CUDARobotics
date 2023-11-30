@@ -55,6 +55,13 @@
       ],
     },
     {
+      "label": "code: Open Plot",
+      "type": "shell",
+      "command": "code $(bazel info bazel-bin)/${relativeFileDirname}/plot.png",
+      "problemMatcher": []
+    },
+    // Experimental tasks
+    {
       "label": "ibazel: Run Current File Target",
       "type": "shell",
       "command": "CC=clang ibazel run ${relativeFileDirname}:${fileBasenameNoExtension}",
@@ -93,11 +100,5 @@
         "bazel-compdb: Generate compile_commands.json"
       ],
     },
-    {
-      "label": "code: Open Plot",
-      "type": "shell",
-      "command": "code $(bazel info bazel-bin)/${relativeFileDirname}/plot.png",
-      "problemMatcher": []
-    }
   ]
 }
