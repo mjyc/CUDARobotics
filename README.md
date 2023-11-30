@@ -69,9 +69,7 @@ code $(bazel info bazel-bin)/Localization/extended_kalman_filter/plot.png  # ope
 Note: the `plot.png` tab closes itself on regenerating the plot.
 
 
-## More DevTools
-
-### Debugging in VS Code
+## Debugging in VS Code
 
 Try
 
@@ -79,35 +77,6 @@ Try
 1. Add a breakporint, e.g., by clicking left to a line number
 1. Open Command Palette via Ctrl + Shift + P (Linux)
 1. Enter "Debug: Start Debugging"
-
-### Regenerating Plot on Change
-
-To regenerate the plot whenever a dependent file content changes, do
-
-1. Open `Localization/extended_kalman_filter/simulate.py` (or any file in that folder)
-1. Open Command Palette via Ctrl + Shift + P (Linux)
-1. Enter "Tasks: Run Task"
-1. Enter "iBazel: Generate Plot"
-
-or run
-
-```
-CC=clang ibazel build ${relativeFileDirname}:generate_plot
-```
-
-To view the plot, do
-
-1. Open `Localization/extended_kalman_filter/plot.py` (or any file in that folder)
-1. Open Command Palette via Ctrl + Shift + P (Linux)
-1. Enter "Tasks: Run Task"
-1. Enter "code: Open Plot"
-
-or run
-
-```
-code $(bazel info bazel-bin)/Localization/extended_kalman_filter/plot.png
-```
-Note: the `plot.png` tab closes itself on regenerating the plot.
 
 
 ## Related projects
