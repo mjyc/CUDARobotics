@@ -79,6 +79,15 @@ Try
 1. Enter "Debug: Start Debugging"
 
 
+## Profiling with Tracy
+
+1. (on host machine) install `tracy` 0.10 (e.g., using `brew` on mac) or build it from src by following the section '2.3 Building the server' of the user manual available at https://github.com/wolfpld/tracy.
+1. (on host machine) Run `tracy`, enter "Client address", click the "Connect" button.
+1. (in devcontainer) Run
+    ```
+    CC=clang bazel run --config=tracy --compilation_mode=opt //Localization/extended_kalman_filter:benchmark
+    ```
+
 ## Related projects
 
 - [AtsushiSakai/PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)
