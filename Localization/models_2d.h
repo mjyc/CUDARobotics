@@ -44,6 +44,7 @@ CreateMotionModel(const Eigen::Matrix4f& F = Eigen::Matrix4f{
   return [F](const Eigen::Vector4f& x, const Eigen::Vector2f& u,
              float dt) -> Eigen::Vector4f
   {
+    ZoneScopedN("MotionModel");
     Matrix42f B{{dt * std::cos(x(2)), 0.0},
                 {dt * std::sin(x(2)), 0.0},
                 {0.0, dt},
@@ -68,6 +69,7 @@ std::function<Eigen::Vector2f(const Eigen::Vector4f&)> CreateObservationModel(
 {
   return [H](const Eigen::Vector4f& x) -> Eigen::Vector2f
   {
+    ZoneScopedN("ObservationModel");
     return H * x;
   };
 }

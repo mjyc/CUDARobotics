@@ -10,7 +10,7 @@
 const float kInitTime{0.0};
 const float kDeltaTime{0.1};
 const Eigen::Vector4f kInitState{0.0, 0.0, 0.0, 0.0};  // [x y yaw v]'
-const float kMaxTime{50.0};
+const float kMaxTime{500.0};
 
 int main(int argc, char* argv[])
 {

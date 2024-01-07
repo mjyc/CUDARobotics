@@ -20,7 +20,9 @@ namespace mjyc
 Eigen::Matrix4f JacobF(const Eigen::Vector4f& x, const Eigen::Vector2f& u,
                        float dt)
 {
-  Eigen::Matrix4f JF{Eigen::Matrix4f::Identity()};
+  ZoneScoped;
+
+  static Eigen::Matrix4f JF{Eigen::Matrix4f::Identity()};
   float yaw = x(2);
   float v = u(0);
   float dt_v = dt * v;
@@ -46,18 +48,36 @@ void EKFEstimation(Eigen::Vector4f& xEst, Eigen::Matrix4f& PEst,
 {
   ZoneScoped;  // tracy
 
-  Eigen::Vector4f xPred{params.MotionModel(xEst, u, params.dt)};
-  Eigen::Matrix4f JF{JacobF(xPred, u, params.dt)};
-  Eigen::Matrix4f PPred{JF * PEst * JF.transpose() + params.Q};
+  Eigen::Vector4f xPred = params.MotionModel(xEst, u, params.dt);
+  Eigen::Matrix4f JF = JacobF(xPred, u, params.dt);
+  Eigen::Matrix4f PPred;
+  {
+    ZoneScopedN("PPred");
+    PPred = JF * PEst * JF.transpose() + params.Q;
+  }
 
   static const Matrix24f JH{{1.0, 0.0, 0.0, 0.0}, {0.0, 1.0, 0.0, 0.0}};
-  Eigen::Vector2f zPred{params.ObservationModel(xPred)};
+  Eigen::Vector2f zPred = params.ObservationModel(xPred);
   Eigen::Vector2f y{z - zPred};
-  Eigen::Matrix2f S{JH * PPred * JH.transpose() + params.R};
-  Matrix42f K{PPred * JH.transpose() * S.inverse()};
+  Eigen::Matrix2f S;
+  {
+    ZoneScopedN("S");
+    S = JH * PPred * JH.transpose() + params.R;
+  }
+  Matrix42f K;
+  {
+    ZoneScopedN("K");
+    K = PPred * JH.transpose() * S.inverse();
+  }
 
-  xEst.noalias() = xPred + K * y;
-  PEst.noalias() = (Eigen::Matrix4f::Identity() - K * JH) * PPred;
+  {
+    ZoneScopedN("xEst");
+    xEst.noalias() = xPred + K * y;
+  }
+  {
+    ZoneScopedN("xEst");
+    PEst.noalias() = (Eigen::Matrix4f::Identity() - K * JH) * PPred;
+  }
 }
 
 }  // namespace mjyc
