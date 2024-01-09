@@ -46,9 +46,13 @@ void EKFEstimation(Eigen::Vector4f& xEst, Eigen::Matrix4f& PEst,
                    const Eigen::Vector2f& z, const Eigen::Vector2f& u,
                    const utils::EKFParameters& params)
 {
-  ZoneScoped;  // tracy
+  ZoneScoped;
 
-  Eigen::Vector4f xPred = params.MotionModel(xEst, u, params.dt);
+  Eigen::Vector4f xPred;
+  {
+    ZoneScopedN("xPred");
+    xPred = params.MotionModel(xEst, u, params.dt);
+  }
   Eigen::Matrix4f JF = JacobF(xPred, u, params.dt);
   Eigen::Matrix4f PPred;
   {
@@ -57,8 +61,16 @@ void EKFEstimation(Eigen::Vector4f& xEst, Eigen::Matrix4f& PEst,
   }
 
   static const Matrix24f JH{{1.0, 0.0, 0.0, 0.0}, {0.0, 1.0, 0.0, 0.0}};
-  Eigen::Vector2f zPred = params.ObservationModel(xPred);
-  Eigen::Vector2f y{z - zPred};
+  Eigen::Vector2f zPred;
+  {
+    ZoneScopedN("zPred");
+    zPred = params.ObservationModel(xPred);
+  }
+  Eigen::Vector2f y;
+  {
+    ZoneScopedN("y");
+    y = z - zPred;
+  }
   Eigen::Matrix2f S;
   {
     ZoneScopedN("S");
